@@ -1,0 +1,56 @@
+# NCBI FCS-GX database
+Assembly/07_contam_filter/fcs_gx/gxdb/
+
+# Genome assembly outputs (large files)
+*.bam
+*.bai
+*.paf
+*.paf.gz
+*.mmi
+*.gfa
+
+# Intermediate purge_dups files
+PB.base.cov
+PB.stat
+dups.bed
+assembly.split.fa
+assembly.split.self.paf.gz
+
+# FASTQ/FASTA intermediates (large raw data — keep in /90daydata/ only)
+*.fastq.gz
+*.fasta.gz
+*.fa.gz
+*.fa
+!Assembly/**/*.fa
+
+# Jellyfish k-mer databases
+*.jf
+
+# BUSCO output directories
+busco_downloads/
+busco/
+
+# QUAST output
+quast/
+
+# SLURM logs
+*.out
+*.err
+
+# BlobToolKit intermediate files
+*.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# R artifacts
+.Rhistory
+.RData

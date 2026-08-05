@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "YellowPecanAphid_Genome",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.sh": "shellscript"
+		}
+	}
+}
