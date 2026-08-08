@@ -15,7 +15,7 @@
 module load apptainer || module load singularity || true
 set -euo pipefail
 
-TAXID=527790 
+TAXID=2982816 
 ASSEMBLY=/90daydata/tgl_seqdata/aphids/assembly/ypa/06_scaffolding/samba_hifiasm_ul/primary/purged.fa.scaffolds.fa
 GX_DB=/project/tgl_seqdata/databases/fcs-gx/gxdb
 OUTDIR=/90daydata/tgl_seqdata/aphids/assembly/ypa/08_contam_filter/fcs_gx/primary
