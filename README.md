@@ -1,4 +1,4 @@
-# Yellow Pecan Aphid (*Monellia caryella*) Genome
+# Yellow Pecan Aphid (*Monelliopsis pecanis*) Genome
 
 [![GitHub](https://img.shields.io/badge/GitHub-KarlFetter%2FYellowPecanAphid__Genome-blue)](https://github.com/KarlFetter/YellowPecanAphid_Genome)
 
@@ -86,7 +86,7 @@ Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 
 > [PLACEHOLDER — complete citation upon acceptance]
 >
-> Fetter, K.C. *et al.* (in prep). Chromosome-scale genome assembly of the yellow pecan aphid, *Monellia caryella*.
+> Fetter, K.C. *et al.* (in prep). Chromosome-scale genome assembly of the yellow pecan aphid, *Monelliopsis pecanis*.
 
 ---
 

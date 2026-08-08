@@ -1,6 +1,6 @@
-# Genome Assembly Pipeline — *Monellia caryella* (Yellow Pecan Aphid)
+# Genome Assembly Pipeline — *Monelliopsis pecanis* (Yellow Pecan Aphid)
 
-This document describes the complete genome assembly pipeline used to generate a chromosome-scale draft assembly of the yellow pecan aphid, *Monellia caryella*, from PacBio HiFi and Oxford Nanopore Technologies (ONT) long reads. All scripts are organized by pipeline step and were run on the USDA SCINet Ceres HPC cluster using SLURM.
+This document describes the complete genome assembly pipeline used to generate a chromosome-scale draft assembly of the yellow pecan aphid, *Monelliopsis pecanis*, from PacBio HiFi and Oxford Nanopore Technologies (ONT) long reads. All scripts are organized by pipeline step and were run on the USDA SCINet Ceres HPC cluster using SLURM.
 
 ---
 
@@ -35,7 +35,7 @@ PacBio HiFi reads were delivered as a single BAM file from the sequencing instru
 
 ### ONT reads
 
-Oxford Nanopore PromethION reads for *M. caryella* were multiplexed with other aphid species and demultiplexed to barcode03. Individual pass-filter FASTQ files were concatenated with `seqkit seq` and per-file and aggregate statistics were computed. A read-length histogram was generated for QC.
+Oxford Nanopore PromethION reads for *M. pecanis* were multiplexed with other aphid species and demultiplexed to barcode03. Individual pass-filter FASTQ files were concatenated with `seqkit seq` and per-file and aggregate statistics were computed. A read-length histogram was generated for QC.
 
 | Script | Purpose |
 |---|---|
@@ -169,7 +169,7 @@ NCBI's Foreign Contamination Screen (FCS-GX) was run via Apptainer/Singularity u
 
 The `gx clean-genome` command applied the action report to remove or trim flagged sequences, producing the cleaned FASTA files used for all downstream analyses.
 
-**Key parameters**: NCBI Taxon ID 527790 (*Monellia caryella*), FCS-GX database at `/project/tgl_seqdata/databases/fcs-gx/gxdb`, 500 GB memory
+**Key parameters**: NCBI Taxon ID 2982816 (*Monelliopsis pecanis*), FCS-GX database at `/project/tgl_seqdata/databases/fcs-gx/gxdb`, 500 GB memory
 
 ---
 
@@ -192,7 +192,7 @@ The contamination-cleaned assemblies (primary, hap1, hap2) were evaluated for co
 
 **Coverage**: theoretical coverage was calculated as total read bases / assembly size. Empirical depth and breadth were calculated by mapping HiFi reads with `minimap2 -ax map-hifi` and ONT reads with `minimap2 -ax map-ont` to each assembly, sorting with `samtools sort`, and calculating per-reference-sequence depth and breadth with `samtools coverage`. Results were summarized across all scaffolds for a genome-wide estimate.
 
-**Chromosome extraction**: *M. caryella* has 2n = 12 chromosomes (6 pairs). The six largest scaffolds were extracted as putative chromosome-scale sequences using `seqkit sort --by-length --reverse | seqkit head -n 6`.
+**Chromosome extraction**: *M. pecanis* has 2n = 12 chromosomes (6 pairs). The six largest scaffolds were extracted as putative chromosome-scale sequences using `seqkit sort --by-length --reverse | seqkit head -n 6`.
 
 ---
 
