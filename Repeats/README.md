@@ -64,16 +64,36 @@ TEtrimmer realigns each RepeatModeler consensus sequence back to the genome, ext
 
 | Script | Purpose |
 |---|---|
-| `RepeatMasker.sh` | Merge repeat libraries and soft-mask the final assembly |
+| `combine_repeat_libraries.sh` | Extract FamDB Insecta families and build the unified repeat library |
+| `RepeatMasker.sh` | Soft-mask the final assembly using the pre-built unified repeat library |
 
-RepeatMasker was run in three logical sub-steps within a single script.
+The masking pipeline is divided into two scripts: library construction and RepeatMasker execution.
 
 **Step 3.1 — Extract curated Insecta repeats via FamDB**: Known repeat families for all Insecta (ancestors and descendants) were extracted from the bundled RepeatMasker library (`RepeatMaskerLib.h5`) using `famdb.py`. Sequences were exported in named FASTA format (`--format fasta_name`) with repeat class included in the header (`--include-class-in-name`).
 
-**Step 3.2 — Merge repeat libraries**: A unified repeat library (`unified_repeats.fa`) was assembled by concatenating:
+**Step 3.2 — Build unified repeat library**: A unified library (`unified_repeats.fa`) was constructed by concatenating three source inputs:
+
 1. The curated de novo RepeatModeler/TEtrimmer consensus library (`consensi.fa`)
 2. FamDB-extracted Insecta families (`insecta_known.fa`)
-3. RepBase v31.07 supplemental libraries: `simple.ref`, `drorep.ref` (Drosophilidae), `angrep.ref` (Anopheles/Culicidae), and `pseudo.ref` (pseudogenes/simple repeats)
+3. Four targeted files from RepBase v31.07:
+
+| RepBase file | Repeat type | Taxonomic group | Selection rationale |
+|---|---|---|---|
+| `drorep.ref` | Diverse TEs | *Drosophila* spp. (Insecta) | Best-characterized insect TE library in RepBase; broadly representative of Class Insecta TE diversity |
+| `angrep.ref` | Diverse TEs | *Anopheles gambiae* (Insecta) | Second major insect reference; captures TE families absent or underrepresented in the Drosophila library |
+| `simple.ref` | Macrosatellites / simple tandem repeats | Cross-taxonomic | Required for masking microsatellites and simple sequence repeats in any genome |
+| `pseudo.ref` | Retroposed pseudogenes | Cross-taxonomic | Captures processed pseudogene insertions that can confound gene prediction if left unmasked |
+
+The complete merge command:
+
+```bash
+cat "$MODELER_OUT" \
+    insecta_known.fa \
+    "${REPBASE_DIR}/simple.ref" \
+    "${REPBASE_DIR}/drorep.ref" \
+    "${REPBASE_DIR}/angrep.ref" \
+    "${REPBASE_DIR}/pseudo.ref" > unified_repeats.fa
+```
 
 **Step 3.3 — RepeatMasker soft-masking**: RepeatMasker was run against the final primary assembly using the unified library and the NCBI BLAST engine (`-e ncbi`). Soft-masking (`-xsmall`) converts repeat-overlapping bases to lowercase while preserving sequence identity, producing an assembly compatible with repeat-aware gene prediction tools (e.g., AUGUSTUS, MAKER). A GFF2 repeat annotation file was generated alongside the masked FASTA.
 
@@ -108,7 +128,7 @@ First, a species-specific repeat consensus library was generated with RepeatMode
 
 Second, the de novo library was curated with TEtrimmer [CITE: Qian et al. 2025]. TEtrimmer extended each consensus sequence to complete terminal repeat boundaries by re-aligning against the genome, removed redundant sequences (`--dedup`), and classified previously unclassified elements using Pfam domain signatures (`--classify_unknown`; `--min_blast_len 60`; 32 threads).
 
-Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the assembly with a unified repeat library composed of: (1) the curated de novo *M. pecanis* consensus sequences, (2) curated Insecta repeat families extracted from the RepeatMasker database (RepeatMaskerLib.h5) via FamDB [CITE: Hubley et al.], and (3) supplemental RepBase v31.07 [CITE: Bao et al. 2015] libraries for simple repeats, Drosophilidae, Culicidae, and pseudogenes. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly.
+Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the assembly with a unified repeat library (`unified_repeats.fa`) constructed from three sources: (1) the curated de novo *M. pecanis* consensus sequences from RepeatModeler2/TEtrimmer, (2) curated Insecta repeat families extracted from the RepeatMasker library (`RepeatMaskerLib.h5`) using FamDB, and (3) four taxonomically targeted files from RepBase v31.07 [CITE: Bao et al. 2015]: `drorep.ref` (*Drosophila*) and `angrep.ref` (*Anopheles gambiae*) as well-characterized Insecta TE representatives, `simple.ref` for macrosatellites and simple tandem repeats, and `pseudo.ref` for retroposed pseudogenes. This multi-source strategy ensures coverage of both species-specific and conserved repeat families. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly.
 
 ### Suggested citations
 

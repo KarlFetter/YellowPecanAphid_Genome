@@ -646,7 +646,7 @@
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>31</b:Volume>
     <b:Issue>19</b:Issue>
-    <b:Pages>3210â€“3212</b:Pages>
+    <b:Pages>3210-3212</b:Pages>
     <b:Year>2015</b:Year>
     <b:Author>
       <b:Author>
@@ -834,6 +834,38 @@
     </b:Author>
     <b:URL>http://www.repeatmasker.org</b:URL>
     <b:Guid>1a2b3c4d-0021-4000-8000-000000000021</b:Guid>
+  </b:Source>
+
+<b:Source>
+    <b:Tag>bao2015repbase</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Repbase Update, a database of repetitive elements in eukaryotic genomes</b:Title>
+    <b:PeriodicalTitle>Mobile Dna</b:PeriodicalTitle>
+    <b:JournalName>Mobile Dna</b:JournalName>
+    <b:Year>2015</b:Year>
+    <b:Volume>6</b:Volume>
+    <b:Issue>1</b:Issue>
+    <b:Pages>11</b:Pages>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:Last>Bao</b:Last>
+            <b:First>Weidong</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Kojima</b:Last>
+            <b:First>Kenji</b:First>
+            <b:Middle>K</b:Middle>
+          </b:Person>
+          <b:Person>
+            <b:Last>Kohany</b:Last>
+            <b:First>Oleksiy</b:First>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:Publisher>Springer</b:Publisher>
   </b:Source>
 
 </b:Sources>
