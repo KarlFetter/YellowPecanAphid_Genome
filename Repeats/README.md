@@ -7,9 +7,10 @@ This document describes the repeat identification and soft-masking pipeline appl
 ## Pipeline Overview
 
 ```
-01_RepeatModeler/       De novo repeat family discovery (RepeatModeler2 + LTRStruct)
-02_TEtrimmer/           Automated curation and classification of the de novo TE library
-03_RepeatMasker/        Soft-masking with merged de novo + known insect repeat library
+01_RepeatModeler/              De novo repeat family discovery (RepeatModeler2 + LTRStruct)
+02_TEtrimmer/                  Automated curation of the de novo TE library
+03_RepeatMasker/               Merge de novo + RepBase libraries and soft-mask the genome
+04_RM_Report_Top6Scaffolds/    ProcessRepeats report for the six chromosome-scale scaffolds
 ```
 
 ---
@@ -64,10 +65,7 @@ TEtrimmer realigns each RepeatModeler consensus sequence back to the genome, ext
 
 | Script | Purpose |
 |---|---|
-| `combine_repeat_libraries.sh` | Extract FamDB Insecta families and build the unified repeat library |
-| `RepeatMasker.sh` | Soft-mask the final assembly using the pre-built unified repeat library |
-
-The masking pipeline is divided into two scripts: library construction and RepeatMasker execution.
+| `RepeatMasker.sh` | Extract FamDB Insecta families, merge repeat libraries, and soft-mask the assembly |
 
 **Step 3.1 — Extract curated Insecta repeats via FamDB**: Known repeat families for all Insecta (ancestors and descendants) were extracted from the bundled RepeatMasker library (`RepeatMaskerLib.h5`) using `famdb.py`. Sequences were exported in named FASTA format (`--format fasta_name`) with repeat class included in the header (`--include-class-in-name`).
 
@@ -115,20 +113,57 @@ cat "$MODELER_OUT" \
 
 ---
 
-## Methods — For Manuscript Inclusion
+## Step 4 — Chromosome-Scale Repeat Report (`04_RM_Report_Top6Scaffolds/`)
+
+| Script | File | Purpose |
+|---|---|---|
+| `process_repeats.sh` | — | Generate repeat summary tables for the top 6 scaffolds |
+| — | `top6_names.txt` | Scaffold IDs for the six chromosome-scale sequences, ordered by size |
+
+*M. pecanis* has 2n = 12 chromosomes (6 pairs). The assembly contains nine scaffolds; the six largest represent the putative chromosome-scale sequences. Because the full-genome RepeatMasker run processes all scaffolds, `ProcessRepeats` was used to regenerate the repeat statistics table restricted to the six chromosomal scaffolds using the pre-computed `.cat` alignment file (`ypa_primary_top6.fa.cat`).
+
+`ProcessRepeats` recomputes the RepeatMasker summary statistics from an existing alignment archive without re-running the BLAST search, making it efficient for subsetting. The `-excln` flag excludes low-complexity and simple repeat regions from the statistics, and `-maskSource` provides the original unmasked genome FASTA for coordinate reference.
+
+**Key parameters**:
+
+| Flag | Value | Purpose |
+|---|---|---|
+| `-lib` | `combined_refined_aphid_repeats.fa` | Repeat library used in the original masking run |
+| `-maskSource` | `ypa_primary.fa` | Unmasked genome FASTA for coordinate reference |
+| `-excln` | — | Exclude low-complexity/simple repeat statistics from the summary |
+
+**Input**: `ypa_primary_top6.fa.cat` — RepeatMasker alignment archive subset to the top 6 scaffolds
+
+**Primary outputs**:
+- `ypa_primary_top6.fa.tbl` — repeat content summary table for the six chromosomal scaffolds
+- `ypa_primary_top6.fa.out` — detailed repeat annotation for the six scaffolds
+
+**Top 6 scaffold IDs** (ordered by assembly size):
+
+| Rank | Scaffold ID |
+|---|---|
+| 1 | ptg000001l_1 |
+| 2 | ptg000004l_1 |
+| 3 | ptg000003l_1 |
+| 4 | ptg000002l_1 |
+| 5 | ptg000005l_1 |
+| 6 | ptg000006l_1 |
+
+---
 
 > **For inclusion in manuscript. Citations should be replaced with formatted references.**
 
 ### Repeat identification and masking
 
-Repetitive elements were identified and soft-masked in the final primary assembly using a three-step pipeline combining de novo discovery, library curation, and homology-based masking.
+Repetitive elements were identified and soft-masked in the final primary assembly using a four-step pipeline.
 
-First, a species-specific repeat consensus library was generated with RepeatModeler2 [CITE: Flynn et al. 2020]. The primary assembly was formatted as a RepeatModeler database with `BuildDatabase`, and de novo repeat families were identified using RECON, RepeatScout, and the `–LTRStruct` structural pipeline for full-length LTR retrotransposon discovery. This produced a raw consensus library of 
-*M. pecanis*-specific repeat families (`ypa_db-families.fa`).
+First, a species-specific repeat consensus library was generated with RepeatModeler2 [CITE: Flynn et al. 2020]. The primary assembly was formatted as a RepeatModeler database with `BuildDatabase`, and de novo repeat families were identified using RECON, RepeatScout, and the `–LTRStruct` structural pipeline for full-length LTR retrotransposon discovery. This produced a raw consensus library of *M. pecanis*-specific repeat families (`ypa_db-families.fa`).
 
 Second, the de novo library was curated with TEtrimmer [CITE: Qian et al. 2025]. TEtrimmer extended each consensus sequence to complete terminal repeat boundaries by re-aligning against the genome, removed redundant sequences (`--dedup`), and classified previously unclassified elements using Pfam domain signatures (`--classify_unknown`; `--min_blast_len 60`; 32 threads).
 
-Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the assembly with a unified repeat library (`unified_repeats.fa`) constructed from three sources: (1) the curated de novo *M. pecanis* consensus sequences from RepeatModeler2/TEtrimmer, (2) curated Insecta repeat families extracted from the RepeatMasker library (`RepeatMaskerLib.h5`) using FamDB, and (3) four taxonomically targeted files from RepBase v31.07 [CITE: Bao et al. 2015]: `drorep.ref` (*Drosophila*) and `angrep.ref` (*Anopheles gambiae*) as well-characterized Insecta TE representatives, `simple.ref` for macrosatellites and simple tandem repeats, and `pseudo.ref` for retroposed pseudogenes. This multi-source strategy ensures coverage of both species-specific and conserved repeat families. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly.
+Third, a unified repeat library was constructed by merging: (1) the curated de novo *M. pecanis* consensus sequences, (2) curated Insecta repeat families extracted from the RepeatMasker library (`RepeatMaskerLib.h5`) using FamDB, and (3) four taxonomically targeted files from RepBase v31.07 [CITE: Bao et al. 2015]: `drorep.ref` (*Drosophila*) and `angrep.ref` (*Anopheles gambiae*) as well-characterized Insecta TE representatives, `simple.ref` for macrosatellites and simple tandem repeats, and `pseudo.ref` for retroposed pseudogenes. RepeatMasker [CITE: Smit et al. 2013–2015] was then run against the final primary assembly using this unified library and the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining sequence identity for downstream annotation.
+
+Fourth, repeat statistics were recomputed for the six chromosome-scale scaffolds using `ProcessRepeats` applied to the pre-computed RepeatMasker alignment archive (`ypa_primary_top6.fa.cat`). This approach regenerates a repeat summary table restricted to the chromosomal sequences without repeating the BLAST search. Low-complexity and simple repeat regions were excluded from the summary statistics (`-excln`).
 
 ### Suggested citations
 
@@ -151,7 +186,8 @@ Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the as
 | RECON | — | Repeat clustering (within RepeatModeler2) |
 | LTRHarvest / LTR_retriever | — | Structural LTR discovery (`-LTRStruct`) |
 | TEtrimmer | — | Automated TE library curation and classification |
-| RepeatMasker | Open-4.0+ | Homology-based repeat masking |
+| RepeatMasker | Open-4.0+ | Homology-based repeat masking and soft-masking |
+| ProcessRepeats | (RepeatMasker suite) | Repeat statistics for chromosome-scale scaffold subset |
 | FamDB | — | Curated Insecta repeat family extraction |
 | RMBlast | — | NCBI BLAST engine for RepeatMasker |
 | RepBase | 31.07 | Supplemental known repeat reference |
