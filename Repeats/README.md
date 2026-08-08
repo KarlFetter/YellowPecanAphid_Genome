@@ -106,7 +106,7 @@ Repetitive elements were identified and soft-masked in the final primary assembl
 First, a species-specific repeat consensus library was generated with RepeatModeler2 [CITE: Flynn et al. 2020]. The primary assembly was formatted as a RepeatModeler database with `BuildDatabase`, and de novo repeat families were identified using RECON, RepeatScout, and the `–LTRStruct` structural pipeline for full-length LTR retrotransposon discovery. This produced a raw consensus library of 
 *M. pecanis*-specific repeat families (`ypa_db-families.fa`).
 
-Second, the de novo library was curated with TEtrimmer [CITE: Zheng et al. 2024]. TEtrimmer extended each consensus sequence to complete terminal repeat boundaries by re-aligning against the genome, removed redundant sequences (`--dedup`), and classified previously unclassified elements using Pfam domain signatures (`--classify_unknown`; `--min_blast_len 60`; 32 threads).
+Second, the de novo library was curated with TEtrimmer [CITE: Qian et al. 2025]. TEtrimmer extended each consensus sequence to complete terminal repeat boundaries by re-aligning against the genome, removed redundant sequences (`--dedup`), and classified previously unclassified elements using Pfam domain signatures (`--classify_unknown`; `--min_blast_len 60`; 32 threads).
 
 Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the assembly with a unified repeat library composed of: (1) the curated de novo *M. pecanis* consensus sequences, (2) curated Insecta repeat families extracted from the RepeatMasker database (RepeatMaskerLib.h5) via FamDB [CITE: Hubley et al.], and (3) supplemental RepBase v31.07 [CITE: Bao et al. 2015] libraries for simple repeats, Drosophilidae, Culicidae, and pseudogenes. RepeatMasker was run using the RMBlast search engine (`-e ncbi`) in soft-masking mode (`-xsmall`), converting repeat-overlapping nucleotides to lowercase while retaining their sequence identity for downstream annotation. A GFF2 repeat annotation file was produced alongside the masked assembly.
 
@@ -118,7 +118,7 @@ Third, RepeatMasker [CITE: Smit et al. 2013–2015] was used to soft-mask the as
 
 > Smit, A.F.A., Hubley, R. & Green, P. (2013–2015). RepeatMasker Open-4.0. http://www.repeatmasker.org.
 
-> Zheng, X. *et al.* (2024). TEtrimmer: a tool for automated curation of transposable element consensus sequences. *[PLACEHOLDER — confirm journal and DOI]*.
+> Qian, J. *et al.* (2025). TEtrimmer: a tool to automate the manual curation of transposable elements. *Nature Communications*, 16, 8429.
 
 ---
 

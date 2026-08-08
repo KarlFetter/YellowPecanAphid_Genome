@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <b:Sources xmlns:b="http://schemas.openxmlformats.org/officeDocument/2006/bibliography" SelectedStyle="">
 
   <b:Source>
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>astashyn2024rapid</b:Tag>
     <b:Title>Rapid and sensitive detection of genome contamination at scale with FCS-GX</b:Title>
-    <b:Journal>Genome Biology</b:Journal>
+    <b:JournalName>Genome Biology</b:JournalName>
     <b:Publisher>Springer</b:Publisher>
     <b:Volume>25</b:Volume>
     <b:Issue>1</b:Issue>
@@ -67,7 +67,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Challis2020</b:Tag>
     <b:Title>BlobToolKit&#x2014;Interactive Quality Assessment of Genome Assemblies</b:Title>
-    <b:Journal>G3: Genes, Genomes, Genetics</b:Journal>
+    <b:JournalName>G3: Genes, Genomes, Genetics</b:JournalName>
     <b:Publisher>Genetics Society of America</b:Publisher>
     <b:Volume>10</b:Volume>
     <b:Issue>4</b:Issue>
@@ -106,7 +106,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>cheng2021haplotype</b:Tag>
     <b:Title>Haplotype-resolved de novo assembly using phased assembly graphs with hifiasm</b:Title>
-    <b:Journal>Nature Methods</b:Journal>
+    <b:JournalName>Nature Methods</b:JournalName>
     <b:Publisher>Nature Publishing Group</b:Publisher>
     <b:Volume>18</b:Volume>
     <b:Issue>2</b:Issue>
@@ -146,7 +146,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>guan2020identifying</b:Tag>
     <b:Title>Identifying and removing haplotypic duplication in primary genome assemblies</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>36</b:Volume>
     <b:Issue>9</b:Issue>
@@ -190,7 +190,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>gurevich2013quast</b:Tag>
     <b:Title>QUAST: quality assessment tool for genome assemblies</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>29</b:Volume>
     <b:Issue>8</b:Issue>
@@ -225,7 +225,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Kim2019</b:Tag>
     <b:Title>Graph-based genome alignment and genotyping with HISAT2 and HISAT-genotype</b:Title>
-    <b:Journal>Nature Biotechnology</b:Journal>
+    <b:JournalName>Nature Biotechnology</b:JournalName>
     <b:Publisher>Nature Publishing Group</b:Publisher>
     <b:Volume>37</b:Volume>
     <b:Pages>907-915</b:Pages>
@@ -265,7 +265,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>li2018minimap2</b:Tag>
     <b:Title>Minimap2: pairwise alignment for nucleotide sequences</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>34</b:Volume>
     <b:Issue>18</b:Issue>
@@ -288,7 +288,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Li2009</b:Tag>
     <b:Title>The Sequence Alignment/Map format and SAMtools</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>25</b:Volume>
     <b:Issue>16</b:Issue>
@@ -343,7 +343,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Manni2021</b:Tag>
     <b:Title>BUSCO Update: Novel and Streamlined Workflows along with Broader and Deeper Phylogenetic Coverage for Scoring of Eukaryotic, Prokaryotic, and Viral Genomes</b:Title>
-    <b:Journal>Molecular Biology and Evolution</b:Journal>
+    <b:JournalName>Molecular Biology and Evolution</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>38</b:Volume>
     <b:Issue>10</b:Issue>
@@ -385,7 +385,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Marcais2011</b:Tag>
     <b:Title>A fast, lock-free approach for efficient parallel counting of occurrences of k-mers</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>27</b:Volume>
     <b:Issue>6</b:Issue>
@@ -412,7 +412,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>quinlan2010bedtools</b:Tag>
     <b:Title>BEDTools: a flexible suite of utilities for comparing genomic features</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>26</b:Volume>
     <b:Issue>6</b:Issue>
@@ -441,7 +441,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>RanalloBenavidez2020</b:Tag>
     <b:Title>GenomeScope 2.0 and Smudgeplots for reference-free profiling of polyploid genomes</b:Title>
-    <b:Journal>Nature Communications</b:Journal>
+    <b:JournalName>Nature Communications</b:JournalName>
     <b:Publisher>Nature Publishing Group</b:Publisher>
     <b:Volume>11</b:Volume>
     <b:Pages>1432</b:Pages>
@@ -474,7 +474,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Rautiainen2023</b:Tag>
     <b:Title>Telomere-to-telomere assembly of diploid chromosomes with Verkko</b:Title>
-    <b:Journal>Nature Biotechnology</b:Journal>
+    <b:JournalName>Nature Biotechnology</b:JournalName>
     <b:Publisher>Nature Publishing Group</b:Publisher>
     <b:Volume>41</b:Volume>
     <b:Pages>1474-1482</b:Pages>
@@ -532,7 +532,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Shen2016</b:Tag>
     <b:Title>SeqKit: A Cross-Platform and Ultrafast Toolkit for FASTA/Q File Manipulation</b:Title>
-    <b:Journal>PLOS ONE</b:Journal>
+    <b:JournalName>PLOS ONE</b:JournalName>
     <b:Publisher>Public Library of Science</b:Publisher>
     <b:Volume>11</b:Volume>
     <b:Issue>10</b:Issue>
@@ -567,7 +567,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Zimin2013</b:Tag>
     <b:Title>The MaSuRCA genome assembler</b:Title>
-    <b:Journal>Bioinformatics</b:Journal>
+    <b:JournalName>Bioinformatics</b:JournalName>
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>29</b:Volume>
     <b:Issue>21</b:Issue>
@@ -613,7 +613,7 @@
     <b:SourceType>JournalArticle</b:SourceType>
     <b:Tag>Zimin2020</b:Tag>
     <b:Title>The genome polishing tool POLCA makes fast and accurate corrections in genome assemblies</b:Title>
-    <b:Journal>PLOS Computational Biology</b:Journal>
+    <b:JournalName>PLOS Computational Biology</b:JournalName>
     <b:Publisher>Public Library of Science</b:Publisher>
     <b:Volume>16</b:Volume>
     <b:Issue>6</b:Issue>
@@ -646,13 +646,13 @@
     <b:Publisher>Oxford University Press</b:Publisher>
     <b:Volume>31</b:Volume>
     <b:Issue>19</b:Issue>
-    <b:Pages>3210–3212</b:Pages>
+    <b:Pages>3210â€“3212</b:Pages>
     <b:Year>2015</b:Year>
     <b:Author>
       <b:Author>
         <b:NameList>
           <b:Person>
-            <b:Last>Simão</b:Last>
+            <b:Last>Sim&#xe3;o</b:Last>
             <b:First>Felipe</b:First>
             <b:Middle>A</b:Middle>
           </b:Person>
@@ -680,4 +680,161 @@
     </b:Author>
   </b:Source>
 
+  <b:Source>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Tag>Flynn2020</b:Tag>
+    <b:Title>RepeatModeler2 for automated genomic discovery of transposable element families</b:Title>
+    <b:JournalName>Proceedings of the National Academy of Sciences</b:JournalName>
+    <b:Publisher>National Academy of Sciences</b:Publisher>
+    <b:Volume>117</b:Volume>
+    <b:Issue>17</b:Issue>
+    <b:Pages>9451-9457</b:Pages>
+    <b:Year>2020</b:Year>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:Last>Flynn</b:Last>
+            <b:First>Jullien</b:First>
+            <b:Middle>M</b:Middle>
+          </b:Person>
+          <b:Person>
+            <b:Last>Hubley</b:Last>
+            <b:First>Robert</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Goubert</b:Last>
+            <b:First>Clement</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Rosen</b:Last>
+            <b:First>Jeb</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Clark</b:Last>
+            <b:First>Andrew</b:First>
+            <b:Middle>G</b:Middle>
+          </b:Person>
+          <b:Person>
+            <b:Last>Feschotte</b:Last>
+            <b:First>Cedric</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Smit</b:Last>
+            <b:First>Arian</b:First>
+            <b:Middle>F</b:Middle>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:Guid>1a2b3c4d-0018-4000-8000-000000000018</b:Guid>
+  </b:Source>
+
+  <b:Source>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Tag>Qian2025</b:Tag>
+    <b:Title>TEtrimmer: a tool to automate the manual curation of transposable elements</b:Title>
+    <b:JournalName>Nature Communications</b:JournalName>
+    <b:Publisher>Nature Publishing Group</b:Publisher>
+    <b:Volume>16</b:Volume>
+    <b:Issue>1</b:Issue>
+    <b:Pages>8429</b:Pages>
+    <b:Year>2025</b:Year>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:Last>Qian</b:Last>
+            <b:First>Jiangzhao</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Xue</b:Last>
+            <b:First>Hang</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Ou</b:Last>
+            <b:First>Shujun</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Mann</b:Last>
+            <b:First>Ludwig</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Storer</b:Last>
+            <b:First>Jessica</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>F&#xfc;rtauer</b:Last>
+            <b:First>Lisa</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Heitkam</b:Last>
+            <b:First>Tony</b:First>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:Guid>1a2b3c4d-0019-4000-8000-000000000019</b:Guid>
+  </b:Source>
+
+  <b:Source>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Tag>Bao2015</b:Tag>
+    <b:Title>Repbase Update, a database of repetitive elements in eukaryotic genomes</b:Title>
+    <b:JournalName>Mobile DNA</b:JournalName>
+    <b:Publisher>BioMed Central</b:Publisher>
+    <b:Volume>6</b:Volume>
+    <b:Pages>11</b:Pages>
+    <b:Year>2015</b:Year>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:Last>Bao</b:Last>
+            <b:First>Weidong</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Kojima</b:Last>
+            <b:First>Kenji</b:First>
+            <b:Middle>K</b:Middle>
+          </b:Person>
+          <b:Person>
+            <b:Last>Kohany</b:Last>
+            <b:First>Oleksiy</b:First>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:Guid>1a2b3c4d-0020-4000-8000-000000000020</b:Guid>
+  </b:Source>
+
+  <b:Source>
+    <b:SourceType>Misc</b:SourceType>
+    <b:Tag>Smit2015</b:Tag>
+    <b:Title>RepeatMasker Open-4.0</b:Title>
+    <b:Year>2015</b:Year>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:Last>Smit</b:Last>
+            <b:First>Arian</b:First>
+            <b:Middle>F A</b:Middle>
+          </b:Person>
+          <b:Person>
+            <b:Last>Hubley</b:Last>
+            <b:First>Robert</b:First>
+          </b:Person>
+          <b:Person>
+            <b:Last>Green</b:Last>
+            <b:First>Phil</b:First>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:URL>http://www.repeatmasker.org</b:URL>
+    <b:Guid>1a2b3c4d-0021-4000-8000-000000000021</b:Guid>
+  </b:Source>
+
 </b:Sources>
+
