@@ -2,7 +2,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-KarlFetter%2FYellowPecanAphid__Genome-blue)](https://github.com/KarlFetter/YellowPecanAphid_Genome)
 
-This repository contains the bioinformatic pipelines and analysis scripts for the reference genome assembly of the yellow pecan aphid, *Monellia caryella* (Fitch, 1855). These analyses support a manuscript describing the first chromosome-scale genome assembly for this species, sequenced with Pacific Biosciences HiFi long reads and Oxford Nanopore Technologies ultra-long reads.
+This repository contains the bioinformatic pipelines and analysis scripts for the reference genome assembly of the yellow pecan aphid, *Monelliopsis pecanis*  (Bissell, 1983). These analyses support a manuscript describing the first chromosome-scale genome assembly for this species, sequenced with Pacific Biosciences HiFi long reads and Oxford Nanopore Technologies ultra-long reads. Comparative genomic analyses are described.
 
 ---
 
@@ -11,12 +11,12 @@ This repository contains the bioinformatic pipelines and analysis scripts for th
 | Attribute | Value |
 |---|---|
 | Common name | Yellow pecan aphid |
-| Scientific name | *Monellia caryella* (Fitch, 1855) |
+| Scientific name | *Monelliopsis pecanis* (Fitch, 1855) |
 | Order | Hemiptera |
 | Family | Aphididae |
 | Subfamily | Drepanosiphinae |
 | Primary host | Pecan (*Carya illinoinensis*) |
-| NCBI Taxon ID | 527790 |
+| NCBI Taxon ID | 2982816 |
 
 ---
 
@@ -24,7 +24,7 @@ This repository contains the bioinformatic pipelines and analysis scripts for th
 
 ```
 YellowPecanAphid_Genome/
-├── README.md              ← You are here
+├── README.md              
 ├── LICENSE
 ├── .gitignore
 ├── Assembly/              ← Genome assembly pipeline
@@ -38,7 +38,11 @@ YellowPecanAphid_Genome/
 │   ├── 08_final_draft_assembly/ ← BUSCO, QUAST, coverage QC
 │   ├── 09_coverage/       ← Genome-wide windowed coverage
 │   └── 10_soft_masked_draft/    ← Chromosome-level filtering, HISAT2 index
-└── Repeats/               ← Repeat identification and masking (coming soon)
+└── Repeats/               ← Repeat annotation pipeline
+    ├── README.md          ← Repeat pipeline documentation
+    ├── 01_RepeatModeler/  ← De novo repeat discovery (RepeatModeler2)
+    ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
+    └── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
 ```
 
 ---
@@ -54,6 +58,16 @@ See [Assembly/README.md](Assembly/README.md) for a step-by-step description of t
 - Scaffolding and gap-filling with SAMBA (MaSuRCA)
 - Contamination screening with BlobToolKit and NCBI FCS-GX
 - Assembly quality assessment with BUSCO and QUAST
+
+---
+
+## Repeat Annotation
+
+See [Repeats/README.md](Repeats/README.md) for a description of the full repeat identification and soft-masking pipeline, including:
+
+- De novo repeat family discovery with RepeatModeler2 (RECON, RepeatScout, LTRStruct)
+- Automated curation and classification of the TE consensus library with TEtrimmer
+- Soft-masking with a unified library of de novo and curated Insecta repeats (RepeatMasker)
 
 ---
 
@@ -89,4 +103,4 @@ GitHub: [@KarlFetter](https://github.com/KarlFetter)
 
 ## License
 
-This work was produced by a United States Government employee as part of their official duties. As a work of the United States Government, it is not subject to copyright protection within the United States. See [LICENSE](LICENSE) for details.
+This work was produced by a United States Government employee as part of their official duties. See [LICENSE](LICENSE) for details.
