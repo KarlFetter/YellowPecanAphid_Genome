@@ -151,6 +151,19 @@ cat "$MODELER_OUT" \
 
 ---
 
+## Repeat Landscape
+
+The chart below shows the distribution of transposable element families across Kimura substitution levels (CpG-adjusted), reflecting relative insertion age. Elements at low divergence are recently active; those at high divergence are ancient. The pie chart shows overall genome fraction by TE class.
+
+**Hover over any bar segment or pie slice to highlight the TE class and see its percent-of-genome value.**
+
+> The interactive figure requires a browser. It will not render in VS Code's Markdown preview.
+> **[Open repeat_landscape.html directly](repeat_landscape.html)** for full interactivity, or view it embedded below if reading this file in a browser.
+
+<iframe src="repeat_landscape.html" width="1560" height="650" frameborder="0" style="border:none; overflow:hidden;" scrolling="no"></iframe>
+
+---
+
 > **For inclusion in manuscript. Citations should be replaced with formatted references.**
 
 ### Repeat identification and masking
