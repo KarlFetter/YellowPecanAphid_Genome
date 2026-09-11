@@ -42,7 +42,11 @@ YellowPecanAphid_Genome/
     ├── README.md          ← Repeat pipeline documentation
     ├── 01_RepeatModeler/  ← De novo repeat discovery (RepeatModeler2)
     ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
-    └── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
+    ├── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
+    ├── 04_RM_Report_Top6Scaffolds/ ← Chromosome-scale repeat report
+    ├── 05_Repeats_Genetic_Div/     ← Exploratory TE-window + pixy attempt (superseded)
+    ├── 06_Repeats_Fixed_Windows/   ← Exploratory fixed-window attempt (superseded, git-ignored)
+    └── 06b_Repeats_Fixed_Windows/  ← Production TE/genetic-diversity pipeline (brms)
 ```
 
 ---
@@ -68,6 +72,7 @@ See [Repeats/README.md](Repeats/README.md) for a description of the full repeat 
 - De novo repeat family discovery with RepeatModeler2 (RECON, RepeatScout, LTRStruct)
 - Automated curation and classification of the TE consensus library with TEtrimmer
 - Soft-masking with a unified library of de novo and curated Insecta repeats (RepeatMasker)
+- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`Repeats/06b_Repeats_Fixed_Windows/`)
 
 ---
 

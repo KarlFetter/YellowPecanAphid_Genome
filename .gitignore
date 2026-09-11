@@ -38,6 +38,10 @@ quast/
 *.err
 
 # BlobToolKit intermediate files
+
+# Superseded exploratory attempt for TE/genetic-diversity analysis; kept locally,
+# superseded by Repeats/06b_Repeats_Fixed_Windows (production pipeline)
+Repeats/06_Repeats_Fixed_Windows/
 *.json
 
 # Python cache
