@@ -1,5 +1,7 @@
 # Q3b: Among TE-containing windows, does PI vary with mean repeat (Kimura) age and how do the slopes of class differ?
 library(brms)
+library(dplyr)
+library(tidyr)
 
 work_dir <- "/90daydata/tgl_seqdata/aphids/repeats/ypa/05b_Repeats_GeneticDiv/fixed_windows"
 input_file <- file.path(work_dir, "genome_10kb_pi.tsv")
@@ -24,9 +26,16 @@ priors <- c(
 q3_data <- subset(dat, TE_PRESENT == "TRUE" & is.finite(MEAN_KIMURA_PERCENT))
 q3_data$KIMURA_SCALED <- as.numeric(scale(q3_data$MEAN_KIMURA_PERCENT))
 
+# CLASS holds semicolon-joined combinations (e.g. "DNA;LINE") for windows overlapping
+# multiple TE classes; expand to one row per class so CLASS groups on the 6 real classes
+q3_data_long <- q3_data %>%
+  separate_rows(CLASS, sep = ";") %>%
+  filter(CLASS != "", CLASS != "NONE") %>%
+  mutate(CLASS = factor(CLASS))
+
 q3b <- brm(
-  PI ~ (KIMURA_SCALED | CLASS) + CHROM,
-  data = q3_data,
+  PI ~ KIMURA_SCALED + CHROM + (KIMURA_SCALED | CLASS),
+  data = q3_data_long,
   family = lognormal(),
   prior = priors,
   chains = 4, cores = 4, iter = 20000, warmup = 4000,
