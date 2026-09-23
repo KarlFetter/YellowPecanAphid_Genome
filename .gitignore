@@ -55,6 +55,14 @@ __pycache__/
 # VS Code
 .vscode/
 
+# Local manuscript-code source archive and curation workspace
+/aphids.zip
+/manuscript_code_staging/
+/Yellow Pecan Aphid Genome Manuscript Fetter et al 2026.docx
+
 # R artifacts
 .Rhistory
 .RData
+
+# Out of date scripts or duplicative analyses
+figure_making/current_best_circos.R

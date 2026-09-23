@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 4
 #SBATCH --mem=32G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
@@ -33,6 +32,5 @@ awk '/^S/{print ">"$2; print $3}' ${HAP1} | gzip -c > ${INDIR}/ypa_ul.bp.hap1.p_
 # Convert haplotype 2
 awk '/^S/{print ">"$2; print $3}' ${HAP2} | gzip -c > ${INDIR}/ypa_ul.bp.hap2.p_ctg.fa.gz
 
-echo "Done"
 ls -lh ${INDIR}/ypa_ul.bp.*.fa.gz
 

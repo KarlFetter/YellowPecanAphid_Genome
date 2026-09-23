@@ -105,7 +105,7 @@ ont = read.table("ypa_primary_ont_100kb_coverage.txt",F,'\t')
 names(hifi) <- c("scaffold", "start", "end", "coverage")
 names(ont) <- c("scaffold", "start", "end", "coverage") 
 
-# Filter for the scaffolds you want
+# Retain the six chromosome-scale scaffolds.
 scaffold_map <- c(
   "ptg000001l_1" = "chr1",
   "ptg000004l_1" = "chr2",

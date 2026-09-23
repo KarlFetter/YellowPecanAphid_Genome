@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 64
 #SBATCH --mem=500G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
@@ -15,9 +14,9 @@
 module load hifiasm/0.25.0
 
 # ============================================================
-# hifiasm — HiFi-only assembly
-# Species: Black pecan aphid (Melanocallis caryaefoliae)
-# Input: HiFi reads directly from Vega
+# hifiasm — HiFi + ONT ultra-long assembly
+# Species: Yellow pecan aphid (Monelliopsis pecanis)
+# Input: HiFi reads and raw ONT barcode reads
 # ============================================================
 
 THREADS=64

@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 32
 #SBATCH --mem=240G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
@@ -19,7 +18,7 @@ GENOME="/90daydata/tgl_seqdata/aphids/assembly/ypa/08_final_draft_assembly/ypa_p
 OUTDIR="/90daydata/tgl_seqdata/aphids/repeats/ypa/02_TEtrimmer_run1"
 # =======================================================
 
-# 1. Initialize and activate your Conda environment inside the Slurm job
+# Initialize the TEtrimmer Conda environment.
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate TEtrimmer
 
@@ -31,7 +30,7 @@ cd "$OUTDIR"
 
 echo "$(date): Starting TEtrimmer automated curation..."
 
-# Run your TEtrimmer command as planned
+# Run TEtrimmer with the curated RepeatModeler library.
 TEtrimmer \
   -i "$INPUT_LIB" \
   -g "$GENOME" \

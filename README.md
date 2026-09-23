@@ -11,7 +11,7 @@ This repository contains the bioinformatic pipelines and analysis scripts for th
 | Attribute | Value |
 |---|---|
 | Common name | Yellow pecan aphid |
-| Scientific name | *Monelliopsis pecanis* (Fitch, 1855) |
+| Scientific name | *Monelliopsis pecanis* (Bissell, 1983) |
 | Order | Hemiptera |
 | Family | Aphididae |
 | Subfamily | Drepanosiphinae |
@@ -27,7 +27,7 @@ YellowPecanAphid_Genome/
 ├── README.md              
 ├── LICENSE
 ├── .gitignore
-├── Assembly/              ← Genome assembly pipeline
+├── 01_Assembly/           ← Genome assembly pipeline
 │   ├── README.md          ← Assembly documentation
 │   ├── 01_raw_reads/      ← BAM-to-FASTQ conversion, read QC
 │   ├── 03_genome_size/    ← k-mer counting (Jellyfish/GenomeScope2)
@@ -38,22 +38,26 @@ YellowPecanAphid_Genome/
 │   ├── 08_final_draft_assembly/ ← BUSCO, QUAST, coverage QC
 │   ├── 09_coverage/       ← Genome-wide windowed coverage
 │   └── 10_soft_masked_draft/    ← Chromosome-level filtering, HISAT2 index
-└── Repeats/               ← Repeat annotation pipeline
-    ├── README.md          ← Repeat pipeline documentation
-    ├── 01_RepeatModeler/  ← De novo repeat discovery (RepeatModeler2)
-    ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
-    ├── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
-    ├── 04_RM_Report_Top6Scaffolds/ ← Chromosome-scale repeat report
-    ├── 05_Repeats_Genetic_Div/     ← Exploratory TE-window + pixy attempt (superseded)
-    ├── 06_Repeats_Fixed_Windows/   ← Exploratory fixed-window attempt (superseded, git-ignored)
-    └── 06b_Repeats_Fixed_Windows/  ← Production TE/genetic-diversity pipeline (brms)
+├── 02_Repeats/            ← Repeat annotation pipeline
+│   ├── README.md          ← Repeat pipeline documentation
+│   ├── 01_RepeatModeler/  ← De novo repeat discovery (RepeatModeler2)
+│   ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
+│   ├── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
+│   ├── 04_RM_Report_Top6Scaffolds/ ← Chromosome-scale repeat report
+│   ├── 05_Repeats_Genetic_Div/     ← Exploratory TE-window + pixy attempt (superseded)
+│   ├── 06_Repeats_Fixed_Windows/   ← Exploratory fixed-window attempt (superseded, git-ignored)
+│   └── 06b_Repeats_Fixed_Windows/  ← Production TE/genetic-diversity pipeline (brms)
+├── 03_Annotation/         ← Structural and functional genome annotation
+├── 04_Population_Genomics/ ← SNP calling, filtering, and nucleotide diversity
+├── circos/                ← Circos input preparation
+└── figure_making/         ← Manuscript figure scripts
 ```
 
 ---
 
 ## Genome Assembly
 
-See [Assembly/README.md](Assembly/README.md) for a step-by-step description of the full assembly pipeline, including:
+See [01_Assembly/README.md](01_Assembly/README.md) for a step-by-step description of the full assembly pipeline, including:
 
 - PacBio HiFi and Oxford Nanopore read processing
 - Genome size estimation via k-mer analysis
@@ -67,12 +71,12 @@ See [Assembly/README.md](Assembly/README.md) for a step-by-step description of t
 
 ## Repeat Annotation
 
-See [Repeats/README.md](Repeats/README.md) for a description of the full repeat identification and soft-masking pipeline, including:
+See [02_Repeats/README.md](02_Repeats/README.md) for a description of the full repeat identification and soft-masking pipeline, including:
 
 - De novo repeat family discovery with RepeatModeler2 (RECON, RepeatScout, LTRStruct)
 - Automated curation and classification of the TE consensus library with TEtrimmer
 - Soft-masking with a unified library of de novo and curated Insecta repeats (RepeatMasker)
-- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`Repeats/06b_Repeats_Fixed_Windows/`)
+- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`02_Repeats/06b_Repeats_Fixed_Windows/`)
 
 ---
 
@@ -80,18 +84,16 @@ See [Repeats/README.md](Repeats/README.md) for a description of the full repeat 
 
 Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 
-- **BioProject**: [PLACEHOLDER — accession]
-- **GenBank assembly**: [PLACEHOLDER — accession]
-- **SRA HiFi reads**: [PLACEHOLDER — accession]
-- **SRA ONT reads**: [PLACEHOLDER — accession]
+- **BioProject**: PRJNA1519993
+- **GenBank assembly**: [PROCESSING]
+- **SRA HiFi reads**: SRR40386561
+- **SRA ONT reads**: SRR40386560
 
 ---
 
 ## Citation
 
-> [PLACEHOLDER — complete citation upon acceptance]
->
-> Fetter, K.C. *et al.* (in prep). Chromosome-scale genome assembly of the yellow pecan aphid, *Monelliopsis pecanis*.
+> Fetter, K.C. *et al.* (in prep). Transposable elements suppress genetic diversity in the Yellow Pecan Aphid (*Monelliopsis pecanis*) genome. Submitted to G3 Genes|Genomes|Genetics
 
 ---
 

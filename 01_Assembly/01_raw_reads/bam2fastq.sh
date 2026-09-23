@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 8
 #SBATCH --mem=32G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
@@ -16,7 +15,7 @@ module load samtools
 
 # ============================================================
 # Convert PacBio HiFi BAM to FASTQ
-# Species: Black pecan aphid (Melanocallis caryaefoliae)
+# Species: Yellow pecan aphid (Monelliopsis pecanis)
 # ============================================================
 
 THREADS=8

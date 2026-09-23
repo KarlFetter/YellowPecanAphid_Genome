@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 8
 #SBATCH --mem=12G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err

@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 8
 #SBATCH --mem=32G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
@@ -27,7 +26,7 @@ THREADS=8
 ONT_DIR=/project/tgl_seqdata/barcoded_sequences/BMA4_BPA5_YPA6_CaquaR1T6/20260421_1552_P2I-00455-A_PBK06960_e4cde178/fastq_pass/barcode03
 OUTDIR=/90daydata/tgl_seqdata/aphids/assembly/ypa/01_raw_reads
 PREFIX=ypa_ont
-EXPEXTED_SIZE=516784515
+EXPECTED_SIZE=516784515
 
 mkdir -p ${OUTDIR}
 
@@ -67,8 +66,8 @@ COVERAGE=$(echo "scale=2; ${TOTAL_BASES} / ${EXPECTED_SIZE}" | bc)
 
 echo "============================================" > ${OUTDIR}/${PREFIX}_summary.txt
 echo "ONT Read Summary" >> ${OUTDIR}/${PREFIX}_summary.txt
-echo "Species: Melanocallis caryaefoliae (Black pecan aphid)" >> ${OUTDIR}/${PREFIX}_summary.txt
-echo "Barcode: barcode02" >> ${OUTDIR}/${PREFIX}_summary.txt
+echo "Species: Monelliopsis pecanis (Yellow pecan aphid)" >> ${OUTDIR}/${PREFIX}_summary.txt
+echo "Barcode: barcode03" >> ${OUTDIR}/${PREFIX}_summary.txt
 echo "============================================" >> ${OUTDIR}/${PREFIX}_summary.txt
 echo "Files processed:      ${FILE_COUNT}" >> ${OUTDIR}/${PREFIX}_summary.txt
 echo "Total reads:          ${TOTAL_SEQS}" >> ${OUTDIR}/${PREFIX}_summary.txt

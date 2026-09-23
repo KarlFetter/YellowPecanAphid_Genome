@@ -24,7 +24,7 @@ long_data <- plot_data %>%
     values_to = "Count"
   )
 
-# Define clean high-contrast hex colors matching your aesthetic specifications
+# High-contrast colors for the assembly rounds
 round_palette <- c("#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#9b59b6")
 
 # --- FIGURE 1: 5 Lines Only (Compact 3" x 3") ---

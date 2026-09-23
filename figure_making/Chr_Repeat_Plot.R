@@ -18,14 +18,14 @@ chrom_order <- c(
   "ptg000006l_1" = "Chr06"
 )
 
-# 3. Clean up taxonomy using your exact input header names
+# 3. Standardize repeat taxonomy.
 plot_data <- df %>%
   filter(query_sequence %in% names(chrom_order)) %>%
   mutate(
     # Compute length of each feature insertion entry
     BP_Length = abs(position_in_query_end - position_in_query_begin) + 1,
     
-    # Map the detailed sub-categories to your 6 broad destination categories
+    # Collapse detailed subcategories into six broad categories.
     Order = case_when(
       str_detect(rep_class, "^DNA") ~ "DNA Transposon",
       str_detect(rep_class, "^LINE|^LTR|^SINE|^PLE") ~ "Retrotransposon",
@@ -50,7 +50,7 @@ plot_data <- df %>%
     "Rolling Circles", "Satellites", "Simple Repeats", "Unclassified"
   )))
 
-# 4. Map colors exactly matching your landscape guidelines
+# 4. Map colors to repeat categories.
 color_palette <- c(
   "DNA Transposon"  = "#56B4E9", # Sky Blue
   "Low Complexity"  = "#F0E442", # Yellow

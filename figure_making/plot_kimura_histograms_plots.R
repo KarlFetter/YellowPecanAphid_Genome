@@ -10,7 +10,7 @@ df <- read.table("ypa_wide_landscape.txt", header = TRUE, check.names = FALSE)
 # Define genome size for y-axis percentage calculation
 GENOME_SIZE <- 509312744
 
-# 2. Reshape data and apply your exact structural category groupings
+# 2. Reshape data and apply structural category groupings.
 plot_data <- df %>%
   pivot_longer(cols = -Div, names_to = "SubClass", values_to = "Base_Count") %>%
   mutate(

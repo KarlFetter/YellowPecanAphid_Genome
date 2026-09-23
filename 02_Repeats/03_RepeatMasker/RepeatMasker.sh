@@ -6,7 +6,6 @@
 #SBATCH -n 1
 #SBATCH -c 36
 #SBATCH --mem=250G
-#SBATCH --mail-user=karl.fetter@usda.gov
 #SBATCH --mail-type=END
 #SBATCH -A tgl_seqdata
 

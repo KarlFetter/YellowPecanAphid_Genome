@@ -15,7 +15,7 @@ df <- read.csv(input_file)
 # 2. Filter data window to clear low-coverage tails (subsetting coverages 5 to 220)
 plot_data <- subset(df, Coverage >= 5 & Coverage <= 220)
 
-# Define clean high-contrast colors matching your requirements
+# High-contrast colors for the assembly rounds
 colors <- c("Round_1"="#e74c3c", "Round_2"="#3498db", "Round_3"="#2ecc71", "Round_4"="#f1c40f")
 
 # --- FIGURE 1: 5 Lines Only (Compact 3" x 3") ---
