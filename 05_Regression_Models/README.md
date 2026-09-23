@@ -21,7 +21,7 @@ Q2 and Q2b expand semicolon-delimited order or class annotations so windows over
 
 ## Shared settings
 
-All models use a lognormal response distribution with four chains, four cores, 4,000 iterations per chain, 2,000 warmup iterations, and random seed `20260902`.
+All models use a lognormal response distribution with four chains, four cores, 4,000 iterations per chain, 2,000 warmup iterations.
 
 Priors are:
 
