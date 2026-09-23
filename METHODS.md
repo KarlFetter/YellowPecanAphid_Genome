@@ -28,7 +28,7 @@ Purged contigs were scaffolded and gap-filled using SAMBA (Simple Assembly Mergi
 
 ### 2.X Contamination screening
 
-Scaffolded assemblies were screened for foreign sequence contamination using two independent methods. First, BlobToolKit [CITE: Challis et al. 2020] was used to visualize per-contig GC content, read coverage, and taxonomic assignment. HiFi reads were aligned to the scaffolded primary assembly with `minimap2 -ax map-hifi`, and the sorted BAM provided per-contig read depth. Contigs with anomalous coverage or GC content, including those from bacterial endosymbionts (e.g., *Buchnera aphidicola*, which is expected in aphid genomes at high coverage relative to nuclear sequences) were identified and flagged. Second, NCBI FCS-GX [CITE: Astashyn et al. 2024] was run via Apptainer against the full NCBI FCS-GX database (≈470 GB) to screen for foreign contamination against the NCBI taxonomy. Screens were run independently for the primary, hap1, and hap2 assemblies using NCBI Taxon ID 2982816 (*Monelliopsis pecanis*). Flagged sequences were removed or trimmed using `gx clean-genome`, and the cleaned assemblies were used for all downstream analyses.
+Scaffolded assemblies were screened for foreign sequence contamination using NCBI FCS-GX [CITE: Astashyn et al. 2024], run via Apptainer against the full NCBI FCS-GX database (≈470 GB). Screens were run independently for the primary, hap1, and hap2 assemblies using NCBI Taxon ID 2982816 (*Monelliopsis pecanis*). Flagged sequences were removed or trimmed using `gx clean-genome`, and the cleaned assemblies were used for all downstream analyses.
 
 ### 2.X Assembly quality assessment
 
@@ -81,8 +81,6 @@ Across all four models, chromosome identity explained additional variation in di
 > Smit, A.F.A., Hubley, R. & Green, P. (2013–2015). RepeatMasker Open-4.0. http://www.repeatmasker.org.
 
 > Astashyn, A. *et al.* (2024). Rapid and sensitive detection of genome contamination at scale with FCS-GX. *Genome Biology*, 25, 60.
-
-> Challis, R. *et al.* (2020). BlobToolKit – Interactive Quality Assessment of Genome Assemblies. *G3: Genes, Genomes, Genetics*, 10(4), 1361–1374.
 
 > Cheng, H. *et al.* (2021). Haplotype-resolved de novo assembly using phased assembly graphs with hifiasm. *Nature Methods*, 18, 170–175.
 

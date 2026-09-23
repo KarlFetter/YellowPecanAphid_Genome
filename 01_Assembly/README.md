@@ -12,7 +12,7 @@ This document describes the complete genome assembly pipeline used to generate a
 04_assembly/            De novo assembly (hifiasm, Verkko); GFA → FASTA; BUSCO QC
 05_purge_haplotigs/     Haplotig purging (purge_dups) for hap1 and hap2
 06_scaffolding/         Scaffold and gap-fill purged contigs (SAMBA / MaSuRCA)
-07_contam_filter/       Contamination screening (BlobToolKit, NCBI FCS-GX)
+07_contam_filter/       Contamination screening and filtering with NCBI FCS-GX
 08_final_draft_assembly/Assembly QC: BUSCO, QUAST, coverage statistics
 09_coverage/            Genome-wide windowed coverage (100 kb windows)
 10_soft_masked_draft/   Chromosome extraction, HISAT2 index
@@ -146,23 +146,13 @@ Output: `purged.fa.scaffolds.fa` — scaffolded and gap-filled assembly.
 
 ## Step 6 — Contamination Filtering (`07_contam_filter/`)
 
-Assemblies were screened for foreign sequence contamination using two independent approaches.
-
-### BlobToolKit (`blobtoolkit/`)
-
-| Script | Purpose |
-|---|---|
-| `01_map_reads.sh` | Map HiFi reads to assembly for per-contig coverage |
-
-HiFi reads were aligned to the scaffolded primary assembly with `minimap2 -ax map-hifi`, and the output was sorted and indexed with `samtools sort` and `samtools index`. The resulting BAM provides per-contig read depth — one of three signals used in BlobToolKit (along with GC content and BLAST/Diamond taxonomic hits) to identify contaminant sequences. Contaminant contigs (e.g., bacterial endosymbiont *Buchnera aphidicola* at anomalously high coverage, or low-coverage foreign contigs) were identified visually using BlobToolKit plots.
-
-**Key parameters**: 32 threads, `minimap2 -ax map-hifi`, `samtools sort -m 4G`
+Assemblies were screened for foreign sequence contamination with NCBI FCS-GX.
 
 ### NCBI FCS-GX (`fcs_gx/`)
 
 | Script | Purpose |
 |---|---|
-| `01_fcs_gx_screen.sh` / `01_fcs_gx_screen_echo.sh` | Screen assembly for foreign contamination |
+| `01_fcs_gx_screen.sh` | Screen assembly for foreign contamination |
 | `02_apply_fcs_filter.sh` | Apply FCS-GX action report to clean assembly |
 
 NCBI's Foreign Contamination Screen (FCS-GX) was run via Apptainer/Singularity using the FCS-GX database (≈470 GB loaded into memory). The tool assigns each scaffold a taxonomic label and flags sequences inconsistent with the target organism. Contamination reports were generated for the primary, hap1, and hap2 assemblies independently.
@@ -232,7 +222,6 @@ The six chromosomal scaffolds were extracted from the genome-wide coverage BAM (
 | purge_dups | — | Haplotig identification and removal |
 | minimap2 | — | Read alignment, self-alignment |
 | MaSuRCA / SAMBA | 4.1.0 | Scaffolding and gap-filling |
-| BlobToolKit | — | Coverage-based contamination visualization |
 | NCBI FCS-GX | — | Contamination screening |
 | QUAST | — | Assembly contiguity statistics |
 | bedtools | — | Windowed coverage analysis |

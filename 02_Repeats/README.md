@@ -11,9 +11,7 @@ This document describes the repeat identification and soft-masking pipeline appl
 02_TEtrimmer/                  Automated curation of the de novo TE library
 03_RepeatMasker/               Merge de novo + RepBase libraries and soft-mask the genome
 04_RM_Report_Top6Scaffolds/    ProcessRepeats report for the six chromosome-scale scaffolds
-05_Repeats_Genetic_Div/        Exploratory TE-centered window + pixy attempt (superseded)
-06_Repeats_Fixed_Windows/      Exploratory fixed-window attempt with a truncated Kimura range (superseded, git-ignored)
-06b_Repeats_Fixed_Windows/     Production fixed-window TE/genetic-diversity pipeline
+05_Repeats_Fixed_Windows/      Fixed-window TE/genetic-diversity pipeline
 ```
 
 ---
@@ -156,29 +154,22 @@ cat "$MODELER_OUT" \
 
 ## Step 5 — Transposable Element Effects on Genetic Diversity
 
-After chromosome-scale repeat annotation (Step 4), a separate analysis tested whether TE presence, TE order/class, and TE age (Kimura divergence) are associated with local nucleotide diversity (π) across the genome. This analysis went through two exploratory iterations before arriving at the production pipeline.
+After chromosome-scale repeat annotation (Step 4), a fixed-window analysis tested whether TE presence, TE order/class, and TE age (Kimura divergence) are associated with local nucleotide diversity (π) across the genome.
 
-### Exploratory attempts (superseded)
-
-| Folder | Approach | Why it was superseded |
-|---|---|---|
-| `05_Repeats_Genetic_Div/` | TE-centered 5/10 kb flanking windows around each insertion, diversity calculated with pixy | Variable-length windows, TE-window overlap handling, and random non-TE controls added substantial complexity without a clear analytical benefit over genome-wide fixed windows |
-| `06_Repeats_Fixed_Windows/` | Fixed 5/10 kb genome-wide windows, diversity calculated with VCFtools `--window-pi` | Repeat age (Kimura divergence) was inadvertently truncated (0.5–25.09) instead of the full range present in the RepeatMasker alignment (0.27–40.36); this folder is retained locally for reference but is git-ignored |
-
-### Production pipeline (`06b_Repeats_Fixed_Windows/`)
+### Fixed-window pipeline (`05_Repeats_Fixed_Windows/`)
 
 | Script | Purpose |
 |---|---|
-| `00_extract_kimura_align.py` / `.sh` | Parse the RepeatMasker `.align` file directly for per-insertion Kimura (CpG-corrected) divergence, coordinates, matching repeat, and class/family |
+| `00_extract_kimura_align.sh` | Run [`circos/extract_kimura_align.py`](../circos/extract_kimura_align.py) to parse per-insertion Kimura values and repeat annotations |
 | `01_make_fixed_windows.sh` | Build non-overlapping 5 kb and 10 kb genome-wide windows and annotate each with overlapping TE content |
 | `02_calc_pi.sh` | Calculate windowed nucleotide diversity with VCFtools `--window-pi` and join to the TE annotations |
 | `03_q1_brms.R` | Bayesian model (`brms`): does TE presence affect π? |
 | `04_q2_brms.R` | Bayesian models: does π differ by TE order or TE class, adjusting for TE fraction? |
 | `05_q3_brms.R` | Bayesian model (reported): does π vary with TE age (Kimura divergence)? `TE_FRACTION` was deliberately excluded because it absorbed variance that otherwise let TE age explain π |
 | `06_q3b_brms.R` | Exploratory extension of q3: random slopes of TE age by TE class |
-| `07_make_figures.R` | Conditional-effects plots and a combined multi-panel figure |
+| `06_make_figures.R` | Conditional-effects plots and a combined multi-panel figure |
 
-**Step 5.1 — Kimura extraction (`00_extract_kimura_align.py`)**: Each alignment block in the RepeatMasker `.align` file already reports the query scaffold, start/end coordinates, matching repeat name, class/family (encoded as `name#Class/Family`), and a per-insertion Kimura-2-parameter divergence corrected for CpG hypermutability (`Kimura (with divCpGMod)`). The script parses these blocks directly, so the resulting table is self-sufficient and requires no join back to the RepeatMasker `.out` file. Each insertion is assigned a `repeat_class` (the RepeatMasker class code, e.g. `LINE`, `SINE`, `LTR`, `DNA`, `RC`, `PLE`) and a four-level `repeat_order` (`DNA_transposon`, `Retrotransposon`, `Rolling_Circle`, or `Unknown` for non-TE/ambiguous classes).
+**Step 5.1 — Kimura extraction ([`circos/extract_kimura_align.py`](../circos/extract_kimura_align.py))**: This is the parser used to generate the Kimura dataset for Bayesian regression modeling. Each RepeatMasker `.align` block reports the query scaffold, insertion coordinates, matching repeat name, class/family (encoded as `name#Class/Family`), and Kimura-2-parameter divergence corrected for CpG hypermutability (`Kimura (with divCpGMod)`). The script writes a self-contained TSV with repeat size, Smith-Waterman score, percent divergence/deletion/insertion, adjusted and unadjusted Kimura values, CpG-site count, repeat class, collapsed repeat order, and TE presence. No join to the RepeatMasker `.out` file is required.
 
 **Step 5.2 — Fixed-window construction (`01_make_fixed_windows.sh`)**: Non-overlapping 5 kb and 10 kb windows were tiled across all six chromosome-scale scaffolds using `bedtools makewindows`. Each window was intersected against the TE coordinate table (`bedtools intersect -wao`) and annotated with total TE base-pair coverage, TE fraction, TE presence/absence, the set of overlapping TE orders/classes/families, and the mean Kimura divergence of overlapping TEs.
 
@@ -186,7 +177,7 @@ After chromosome-scale repeat annotation (Step 4), a separate analysis tested wh
 
 **Step 5.4 — Bayesian modeling (`03`–`06`)**: Nucleotide diversity was modeled as a function of TE presence, TE fraction, TE order, TE class, and TE age using Bayesian regression models fit with `brms` [CITE: Bürkner 2017] and Stan, assuming a lognormal distribution for π and including chromosome as a covariate to account for genome-wide structural variation in diversity.
 
-**Step 5.5 — Figures (`07_make_figures.R`)**: Conditional-effects estimates from each fitted model were extracted and plotted individually and as a combined multi-panel figure.
+**Step 5.5 — Figures (`06_make_figures.R`)**: Conditional-effects estimates from each fitted model were extracted and plotted individually and as a combined multi-panel figure.
 
 ### Suggested citations
 

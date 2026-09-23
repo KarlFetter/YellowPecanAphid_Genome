@@ -24,9 +24,11 @@ This repository contains the bioinformatic pipelines and analysis scripts for th
 
 ```
 YellowPecanAphid_Genome/
-├── README.md              
-├── LICENSE
 ├── .gitignore
+├── LICENSE
+├── METHODS.md             ← Detailed manuscript methods
+├── README.md
+├── references.bib         ← Manuscript references
 ├── 01_Assembly/           ← Genome assembly pipeline
 │   ├── README.md          ← Assembly documentation
 │   ├── 01_raw_reads/      ← BAM-to-FASTQ conversion, read QC
@@ -34,7 +36,7 @@ YellowPecanAphid_Genome/
 │   ├── 04_assembly/       ← hifiasm and Verkko assemblies
 │   ├── 05_purge_haplotigs/← Haplotig purging (purge_dups)
 │   ├── 06_scaffolding/    ← Scaffolding and gap-filling (SAMBA)
-│   ├── 07_contam_filter/  ← BlobToolKit and NCBI FCS-GX screens
+│   ├── 07_contam_filter/  ← NCBI FCS-GX contamination screening
 │   ├── 08_final_draft_assembly/ ← BUSCO, QUAST, coverage QC
 │   ├── 09_coverage/       ← Genome-wide windowed coverage
 │   └── 10_soft_masked_draft/    ← Chromosome-level filtering, HISAT2 index
@@ -44,13 +46,21 @@ YellowPecanAphid_Genome/
 │   ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
 │   ├── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
 │   ├── 04_RM_Report_Top6Scaffolds/ ← Chromosome-scale repeat report
-│   ├── 05_Repeats_Genetic_Div/     ← Exploratory TE-window + pixy attempt (superseded)
-│   ├── 06_Repeats_Fixed_Windows/   ← Exploratory fixed-window attempt (superseded, git-ignored)
-│   └── 06b_Repeats_Fixed_Windows/  ← Production TE/genetic-diversity pipeline (brms)
+│   └── 05_Repeats_Fixed_Windows/   ← TE/genetic-diversity pipeline (brms)
 ├── 03_Annotation/         ← Structural and functional genome annotation
+│   ├── 01_predict_genes_funannotate.sh
+│   ├── 02_functional_annotation_funannotate.sh
+│   ├── 03_interproscan.sh
+│   └── 04_busco_proteins.sh
 ├── 04_Population_Genomics/ ← SNP calling, filtering, and nucleotide diversity
-├── circos/                ← Circos input preparation
-└── figure_making/         ← Manuscript figure scripts
+│   ├── 01_call_snps.sh
+│   ├── 02_filter_snps.sh
+│   ├── 03_subset_chromosomes.sh
+│   └── 04_calculate_pi.sh
+├── circos/
+│   ├── 01_prep_inputs.sh  ← Circos karyotype, SNP-density, and π inputs
+│   └── extract_kimura_align.py ← RepeatMasker Kimura parser used for modeling
+└── figure_making/         ← Circos, coverage, repeat, and TE-diversity figures
 ```
 
 ---
@@ -64,7 +74,7 @@ See [01_Assembly/README.md](01_Assembly/README.md) for a step-by-step descriptio
 - De novo assembly with hifiasm (HiFi-only and HiFi+ONT ultra-long) and Verkko
 - Haplotig purging with purge_dups
 - Scaffolding and gap-filling with SAMBA (MaSuRCA)
-- Contamination screening with BlobToolKit and NCBI FCS-GX
+- Contamination screening with NCBI FCS-GX
 - Assembly quality assessment with BUSCO and QUAST
 
 ---
@@ -76,7 +86,8 @@ See [02_Repeats/README.md](02_Repeats/README.md) for a description of the full r
 - De novo repeat family discovery with RepeatModeler2 (RECON, RepeatScout, LTRStruct)
 - Automated curation and classification of the TE consensus library with TEtrimmer
 - Soft-masking with a unified library of de novo and curated Insecta repeats (RepeatMasker)
-- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`02_Repeats/06b_Repeats_Fixed_Windows/`)
+- Per-insertion Kimura divergence extraction with [`circos/extract_kimura_align.py`](circos/extract_kimura_align.py)
+- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`02_Repeats/05_Repeats_Fixed_Windows/`)
 
 ---
 
@@ -93,7 +104,7 @@ Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 
 ## Citation
 
-> Fetter, K.C. *et al.* (in prep). Transposable elements suppress genetic diversity in the Yellow Pecan Aphid (*Monelliopsis pecanis*) genome. Submitted to G3 Genes|Genomes|Genetics
+> Fetter, K.C., Chen, H.C., Cottrell, T. (in prep). Transposable elements suppress genetic diversity in the Yellow Pecan Aphid (*Monelliopsis pecanis*) genome. Submitted to G3 Genes|Genomes|Genetics
 
 ---
 

@@ -13,12 +13,12 @@
 
 WORK_DIR="/90daydata/tgl_seqdata/aphids/repeats/ypa/04b_RepeatAge"
 ALIGN_FILE="/90daydata/tgl_seqdata/aphids/repeats/ypa/03c_RepeatMasker_Top6/ypa_primary_top6.fa.align"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+KIMURA_SCRIPT="${SCRIPT_DIR}/../../circos/extract_kimura_align.py"
 
 mkdir -p "${WORK_DIR}"
 cd "${WORK_DIR}"
 
-python 00_extract_kimura_align.py \
+python "$KIMURA_SCRIPT" \
     --align "${ALIGN_FILE}" \
     --out "${WORK_DIR}/repeat_ages_kimura.tsv"
-
-echo "Kimura extraction completed: ${WORK_DIR}/repeat_ages_kimura.tsv"

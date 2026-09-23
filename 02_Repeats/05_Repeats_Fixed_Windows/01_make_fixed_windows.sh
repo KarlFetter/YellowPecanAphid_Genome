@@ -13,9 +13,9 @@
 
 set -euo pipefail
 
-WORK_DIR="/90daydata/tgl_seqdata/aphids/repeats/ypa/05_Repeats_GeneticDiv/fixed_windows_approach"
+WORK_DIR="/90daydata/tgl_seqdata/aphids/repeats/ypa/05b_Repeats_GeneticDiv/fixed_windows"
 GENOME="/90daydata/tgl_seqdata/aphids/assembly/ypa/10_soft_masked_draft/ypa_primary_top6.fa"
-REPEAT_TSV="/90daydata/tgl_seqdata/aphids/repeats/ypa/05_Repeats_GeneticDiv/data/repeat_locations_types_k2_Complete_and_Fragmentary.tsv"
+REPEAT_TSV="/90daydata/tgl_seqdata/aphids/repeats/ypa/04b_RepeatAge/repeat_ages_kimura.tsv"
 
 module load samtools
 module load bedtools
@@ -24,24 +24,23 @@ command -v bedtools >/dev/null || { echo "bedtools is required" >&2; exit 1; }
 
 mkdir -p "${WORK_DIR}"
 [[ -s "${GENOME}" ]] || { echo "Missing genome: ${GENOME}" >&2; exit 1; }
-[[ -s "${REPEAT_TSV}" ]] || { echo "Missing repeat TSV: ${REPEAT_TSV}" >&2; exit 1; }
+[[ -s "${REPEAT_TSV}" ]] || { echo "Missing repeat TSV: ${REPEAT_TSV} (run 00_extract_kimura_align.sh first)" >&2; exit 1; }
 
 if [[ ! -s "${GENOME}.fai" ]]; then
     samtools faidx "${GENOME}"
 fi
 
+# repeat_order/repeat_class/unique_insertion_id come from circos/extract_kimura_align.py
 TE_BED="${WORK_DIR}/te_intervals.bed"
 awk -F '\t' 'BEGIN { OFS = "\t" }
     /^#/ { next }
     !header_seen { for (i = 1; i <= NF; i++) header[$i] = i; header_seen = 1; next }
     {
         if ($header["repeat_presence"] != "TE") next
-        start = $header["pos_query_begin"] - 1
-        end = $header["pos_query_end"]
+        start = $header["position_begin"] - 1
+        end = $header["position_end"]
         if (start < 0 || end <= start) next
-        order = $header["Order"]
-        if (order == "Penelope-like_Element") order = "Retroelement"
-        print $header["query_seq"], start, end, $header["unique_insertion_id"], order, $header["Class"], $header["repeat_class.family"], $header["Kimura_percent"]
+        print $header["query_sequence"], start, end, $header["unique_insertion_id"], $header["repeat_order"], $header["repeat_class"], $header["repeat_family"], $header["kimura_percent"]
     }
 ' "${REPEAT_TSV}" | sort -k1,1 -k2,2n > "${TE_BED}"
 
@@ -70,7 +69,7 @@ for size in 5000 10000; do
                 else if (index(";" class_col[key] ";", ";" $9 ";") == 0) class_col[key] = class_col[key] ";" $9
                 if (family[key] == "") family[key] = $10
                 else if (index(";" family[key] ";", ";" $10 ";") == 0) family[key] = family[key] ";" $10
-                if ($11 != "" && $11 != ".") { age_sum[key] += $11; age_count[key]++ }
+                if ($11 != "" && $11 != "." && $11 != "NA") { age_sum[key] += $11; age_count[key]++ }
                 if (ids[key] == "") ids[key] = $7
                 else ids[key] = ids[key] ";" $7
             }
