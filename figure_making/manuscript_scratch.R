@@ -134,5 +134,17 @@ pi_summary <- pi %>%
     mean_PI = mean(PI, na.rm = TRUE),
     min_PI = min(PI, na.rm = TRUE),
     max_PI = max(PI, na.rm = TRUE)
-    )
+  )
 pi_summary
+
+
+# How many aphid species on NCBI?
+setwd("C:/Users/Karl.Fetter/aphid")
+aphid = read.table("aphididae_genomes_on_NCBI.tsv",T,'\t')
+
+# How many species represented?
+length(unique(aphid$Organism.Name))
+
+# What level of assembly are they?
+table(aphid$Assembly.Level)
+
