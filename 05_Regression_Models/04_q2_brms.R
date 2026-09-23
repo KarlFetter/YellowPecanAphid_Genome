@@ -59,3 +59,4 @@ q2b <- brm(
   file = file.path(output_dir, "q2_te_class")
 )
 summary(q2b)
+

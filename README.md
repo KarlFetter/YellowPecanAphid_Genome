@@ -46,7 +46,7 @@ YellowPecanAphid_Genome/
 │   ├── 02_TEtrimmer/      ← TE library curation (TEtrimmer)
 │   ├── 03_RepeatMasker/   ← Soft-masking (RepeatMasker)
 │   ├── 04_RM_Report_Top6Scaffolds/ ← Chromosome-scale repeat report
-│   └── 05_Repeats_Fixed_Windows/   ← TE/genetic-diversity pipeline (brms)
+│   └── 05_Repeats_Fixed_Windows/   ← Fixed-window TE and π data preparation
 ├── 03_Annotation/         ← Structural and functional genome annotation
 │   ├── 01_predict_genes_funannotate.sh
 │   ├── 02_functional_annotation_funannotate.sh
@@ -57,6 +57,11 @@ YellowPecanAphid_Genome/
 │   ├── 02_filter_snps.sh
 │   ├── 03_subset_chromosomes.sh
 │   └── 04_calculate_pi.sh
+├── 05_Regression_Models/ ← Bayesian models of TE effects on nucleotide diversity
+│   ├── README.md          ← Model formulas and shared settings
+│   ├── 03_q1_brms.R       ← TE presence model
+│   ├── 04_q2_brms.R       ← TE order and class models
+│   └── 05_q3_brms.R       ← TE age model
 ├── circos/
 │   ├── 01_prep_inputs.sh  ← Circos karyotype, SNP-density, and π inputs
 │   └── extract_kimura_align.py ← RepeatMasker Kimura parser used for modeling
@@ -87,7 +92,13 @@ See [02_Repeats/README.md](02_Repeats/README.md) for a description of the full r
 - Automated curation and classification of the TE consensus library with TEtrimmer
 - Soft-masking with a unified library of de novo and curated Insecta repeats (RepeatMasker)
 - Per-insertion Kimura divergence extraction with [`circos/extract_kimura_align.py`](circos/extract_kimura_align.py)
-- Bayesian analysis of transposable element effects on genome-wide nucleotide diversity (`02_Repeats/05_Repeats_Fixed_Windows/`)
+- Fixed-window TE and nucleotide-diversity data preparation (`02_Repeats/05_Repeats_Fixed_Windows/`)
+
+---
+
+## Regression Models
+
+See [05_Regression_Models/README.md](05_Regression_Models/README.md) for the four primary Bayesian models testing TE presence, TE order, TE class, and TE age as predictors of nucleotide diversity.
 
 ---
 

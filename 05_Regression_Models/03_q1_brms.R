@@ -1,4 +1,4 @@
-# Q3: Among TE-containing windows, does PI vary with mean repeat (Kimura) age?
+# Q1: Does TE presence in a fixed window affect nucleotide diversity (PI)?
 library(brms)
 
 work_dir <- "/90daydata/tgl_seqdata/aphids/repeats/ypa/05b_Repeats_GeneticDiv/fixed_windows"
@@ -14,6 +14,7 @@ dat$TE_FRACTION <- as.numeric(dat$TE_FRACTION)
 dat$MEAN_KIMURA_PERCENT <- as.numeric(dat$MEAN_KIMURA_PERCENT)
 dat$TE_PRESENT <- factor(dat$TE_PRESENT, levels = c("FALSE", "TRUE"))
 dat$CHROM <- factor(dat$CHROM)
+dat$ORDER <- factor(dat$ORDER)
 
 priors <- c(
   prior(normal(0, 2), class = "b"),
@@ -21,20 +22,15 @@ priors <- c(
   prior(exponential(1), class = "sigma")
 )
 
-q3_data <- subset(dat, TE_PRESENT == "TRUE" & is.finite(MEAN_KIMURA_PERCENT))
-q3_data$KIMURA_SCALED <- as.numeric(scale(q3_data$MEAN_KIMURA_PERCENT))
-
-# TE_FRACTION deliberately excluded: it absorbed variance that otherwise let KIMURA_SCALED explain PI
-q3 <- brm(
-  PI ~ KIMURA_SCALED + CHROM,
-  data = q3_data,
+q1 <- brm(
+  PI ~ TE_PRESENT + CHROM,
+  data = dat,
   family = lognormal(),
   prior = priors,
   chains = 4, cores = 4, iter = 4000, warmup = 2000,
   seed = 20260902,
-  file = file.path(output_dir, "q3_kimura_age")
+  file = file.path(output_dir, "q1_te_presence")
 )
-summary(q3)
 
-cat("Kimura scaling center:", attr(scale(q3_data$MEAN_KIMURA_PERCENT), "scaled:center"), "\n")
-cat("Kimura scaling scale:", attr(scale(q3_data$MEAN_KIMURA_PERCENT), "scaled:scale"), "\n")
+summary(q1)
+

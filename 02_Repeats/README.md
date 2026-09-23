@@ -163,9 +163,6 @@ After chromosome-scale repeat annotation (Step 4), a fixed-window analysis teste
 | `00_extract_kimura_align.sh` | Run [`circos/extract_kimura_align.py`](../circos/extract_kimura_align.py) to parse per-insertion Kimura values and repeat annotations |
 | `01_make_fixed_windows.sh` | Build non-overlapping 5 kb and 10 kb genome-wide windows and annotate each with overlapping TE content |
 | `02_calc_pi.sh` | Calculate windowed nucleotide diversity with VCFtools `--window-pi` and join to the TE annotations |
-| `03_q1_brms.R` | Bayesian model (`brms`): does TE presence affect π? |
-| `04_q2_brms.R` | Bayesian models: does π differ by TE order or TE class, adjusting for TE fraction? |
-| `05_q3_brms.R` | Bayesian model (reported): does π vary with TE age (Kimura divergence)? `TE_FRACTION` was deliberately excluded because it absorbed variance that otherwise let TE age explain π |
 | `06_q3b_brms.R` | Exploratory extension of q3: random slopes of TE age by TE class |
 | `06_make_figures.R` | Conditional-effects plots and a combined multi-panel figure |
 
@@ -175,7 +172,7 @@ After chromosome-scale repeat annotation (Step 4), a fixed-window analysis teste
 
 **Step 5.3 — Diversity calculation (`02_calc_pi.sh`)**: Nucleotide diversity was calculated for the same fixed windows using VCFtools [CITE: Danecek et al. 2011] `--window-pi`, and the resulting per-window statistics (`N_VARIANTS`, `N_MONOMORPHIC`, `PI`) were joined to the TE annotation table by window coordinates.
 
-**Step 5.4 — Bayesian modeling (`03`–`06`)**: Nucleotide diversity was modeled as a function of TE presence, TE fraction, TE order, TE class, and TE age using Bayesian regression models fit with `brms` [CITE: Bürkner 2017] and Stan, assuming a lognormal distribution for π and including chromosome as a covariate to account for genome-wide structural variation in diversity.
+**Step 5.4 — Bayesian modeling**: The primary model scripts are documented in [`05_Regression_Models/`](../05_Regression_Models/README.md). Nucleotide diversity was modeled as a function of TE presence, TE fraction, TE order, TE class, and TE age using `brms` [CITE: Bürkner 2017] and Stan, assuming a lognormal distribution for π and including chromosome as a covariate.
 
 **Step 5.5 — Figures (`06_make_figures.R`)**: Conditional-effects estimates from each fitted model were extracted and plotted individually and as a combined multi-panel figure.
 
