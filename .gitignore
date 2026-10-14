@@ -63,6 +63,8 @@ __pycache__/
 
 # Out of date scripts or duplicative analyses
 figure_making/current_best_circos.R
+figure_making/current_best_circos_Track3HeatMap.R
+figure_making/circos_shiny_layout_simple.R
 01_Assembly/01_raw_reads/ont_stats2.sh
 02_Repeats/04_RM_Report_Top6Scaffolds/top6_names.txt
 02_Repeats/05_Repeats_Fixed_Windows/pi_te_brms_model_results.txt
