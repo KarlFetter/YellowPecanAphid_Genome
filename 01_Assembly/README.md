@@ -9,8 +9,8 @@ This document describes the genome assembly pipeline used to generate a chromoso
 ```
 01_raw_reads/           Convert HiFi BAM to FASTQ; concatenate and QC ONT reads
 03_genome_size/         k-mer counting (Jellyfish); GenomeScope2 genome size estimate
-04_assembly/            De novo assembly (hifiasm, Verkko); GFA to FASTA; BUSCO QC
-05_purge_haplotigs/     Haplotig purging (purge_dups) for hap1 and hap2
+04_assembly/            De novo assembly (hifiasm); GFA to FASTA; BUSCO QC
+05_purge_haplotigs/     Haplotig purging (purge_dups pipeline)
 06_scaffolding/         Scaffold and gap-fill purged contigs (SAMBA / MaSuRCA)
 07_contam_filter/       Contamination screening and filtering with NCBI FCS-GX
 08_final_draft_assembly/Assembly QC: BUSCO, QUAST, coverage statistics
@@ -105,8 +105,8 @@ Haplotype-resolved assemblies from hifiasm may retain duplicated sequences where
 
 | Script | Assembly input |
 |---|---|
-| `05_purge_haplotig_pipeline.sh` | hifiasm hap1 primary contigs |
-| `05b_purge_haplotig_pipeline.sh` | hifiasm_ul_34kbN50 hap2 primary contigs |
+| `05_purge_haplotig_pipeline.sh` | initial hifiasm assembly |
+| `05b_purge_haplotig_pipeline.sh` | hifiasm_ul_34kbN50 assembly |
 
 **Three-step pipeline**:
 
@@ -121,7 +121,7 @@ Haplotype-resolved assemblies from hifiasm may retain duplicated sequences where
    - `get_seqs` extracted the purged primary assembly (`purged.fa`) and removed haplotigs (`hap.fa`).
    - `seqkit stats -a` reported QC statistics on both outputs.
 
-**Key parameters**: 32 threads, minimap2 `-xmap-hifi` for read mapping, `-xasm5 -DP` for self-alignment.
+**Parameters**: 32 threads, minimap2 `-xmap-hifi` for read mapping, `-xasm5 -DP` for self-alignment.
 
 ---
 
@@ -131,8 +131,8 @@ Purged primary contigs were scaffolded using **SAMBA** (from the MaSuRCA v4.1.0 
 
 | Script | Assembly input |
 |---|---|
-| `06a_samba_scaffold.sh` | hifiasm hap2 purged contigs |
-| `06b_samba_scaffold.sh` | hifiasm_ul_34kbN50 hap2 purged contigs |
+| `06a_samba_scaffold.sh` | hifiasm purged contigs |
+| `06b_samba_scaffold.sh` | hifiasm_ul_34kbN50 purged contigs |
 
 **SAMBA parameters**:
 - `-d asm` — data type: PacBio HiFi assembly mode
@@ -179,9 +179,9 @@ The contamination-cleaned assemblies (primary, hap1, hap2) were evaluated for co
 
 **QUAST**: basic assembly statistics (contig N50, L50, total length, number of contigs).
 
-**Coverage**: theoretical coverage was calculated as total read bases / assembly size. Empirical depth and breadth were calculated by mapping HiFi reads with `minimap2 -ax map-hifi` and ONT reads with `minimap2 -ax map-ont` to each assembly, sorting with `samtools sort`, and calculating per-reference-sequence depth and breadth with `samtools coverage`. Results were summarized across all scaffolds for a genome-wide estimate.
+**Coverage**: theoretical coverage was calculated as total read bases / assembly size. Empirical depth was calculated by mapping HiFi reads with `minimap2 -ax map-hifi` and ONT reads with `minimap2 -ax map-ont` to each assembly, sorting with `samtools sort`, and calculating per-reference-sequence depth and breadth with `samtools coverage`. Results were summarized across all scaffolds for a genome-wide estimate.
 
-**Chromosome extraction**: *M. pecanis* has 2n = 12 chromosomes (6 pairs). The six largest scaffolds were extracted as putative chromosome-scale sequences using `seqkit sort --by-length --reverse | seqkit head -n 6`.
+**Chromosome extraction**: The six largest scaffolds were extracted as putative chromosome-scale sequences using `seqkit sort --by-length --reverse | seqkit head -n 6`.
 
 ---
 
@@ -204,7 +204,7 @@ For each cleaned assembly, HiFi and ONT reads were independently aligned with `m
 | `filter_bam_to_chrs.sh` | Subset alignment BAM to the 6 chromosomal scaffolds |
 | `hisat2-build.sh` | Build HISAT2 splice-aware index for RNA-seq alignment |
 
-The six chromosomal scaffolds were extracted from the genome-wide coverage BAM (`samtools view -b`) and re-indexed. A HISAT2 index (`hisat2-build -p 8`) was built from the primary chromosome-scale FASTA to support downstream RNA-seq mapping for gene annotation.
+The six chromosomal scaffolds were extracted from the genome-wide coverage BAM (`samtools view -b`) and re-indexed. A HISAT2 index (`hisat2-build -p 8`) was built from the primary chromosome-scale FASTA to support downstream analyses.
 
 ---
 
@@ -212,19 +212,18 @@ The six chromosomal scaffolds were extracted from the genome-wide coverage BAM (
 
 | Tool | Version | Use |
 |---|---|---|
-| samtools | — | BAM/FASTQ conversion, sorting, indexing, coverage |
-| seqkit | — | Read and assembly statistics |
+| samtools | 1.17 | BAM/FASTQ conversion, sorting, indexing, coverage |
+| seqkit | 2.4.0 | Read and assembly statistics |
 | Jellyfish | 2.2.9 | k-mer counting |
 | hifiasm | 0.25.0 | De novo genome assembly |
-| Verkko | — | Alternative graph-based assembler |
 | BUSCO | 5 | Assembly completeness assessment |
-| purge_dups | — | Haplotig identification and removal |
-| minimap2 | — | Read alignment, self-alignment |
+| purge_dups | 1.2.6 | Haplotig identification and removal |
+| minimap2 | 2.24 | Read alignment, self-alignment |
 | MaSuRCA / SAMBA | 4.1.0 | Scaffolding and gap-filling |
-| NCBI FCS-GX | — | Contamination screening |
-| QUAST | — | Assembly contiguity statistics |
-| bedtools | — | Windowed coverage analysis |
-| HISAT2 | — | Splice-aware RNA-seq aligner index |
+| NCBI FCS-GX | 0.5.5 | Contamination screening |
+| QUAST | 5.2.0 | Assembly contiguity statistics |
+| bedtools | 2.30.0 | Windowed coverage analysis |
+| HISAT2 | 2.2.1 | Splice-aware RNA-seq aligner index |
 
 ---
 
