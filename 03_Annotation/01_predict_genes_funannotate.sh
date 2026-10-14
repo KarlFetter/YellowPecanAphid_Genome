@@ -13,8 +13,10 @@
 
 set -euo pipefail
 
+# Load module
 module load funannotate/1.8.16
 
+# Set up inputs
 BASE_DIR="/90daydata/tgl_seqdata/aphids/annotation/ypa/funannotate"
 GENOME="/90daydata/tgl_seqdata/aphids/assembly/ypa/10_soft_masked_draft/ypa_primary.fa"
 PROT_DB="/project/tgl_seqdata/databases/RefSeq/hemiptera_protein_sets/hemiptera_refseq_N50.faa"
@@ -26,6 +28,7 @@ export AUGUSTUS_CONFIG_PATH="/90daydata/tgl_seqdata/aphids/annotation/ypa/august
 mkdir -p "$BASE_DIR"
 cd "$BASE_DIR"
 
+# Run funannotate
 funannotate predict \
   -i "$GENOME" \
   --protein_evidence "$PROT_DB" \

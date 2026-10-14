@@ -20,11 +20,13 @@ OUT_DIR="/90daydata/tgl_seqdata/aphids/popgen/ypa/03_genetic_stats/local_10kb"
 
 mkdir -p "$OUT_DIR"
 
+# Calculate pi in 10kb windows
 vcftools --gzvcf "$INPUT_VCF" \
   --window-pi 10000 \
   --window-pi-step 10000 \
   --out "${OUT_DIR}/pi_10kb"
 
+# Calculate pi in 10kb sliding windows
 vcftools --gzvcf "$INPUT_VCF" \
   --window-pi 10000 \
   --window-pi-step 2000 \

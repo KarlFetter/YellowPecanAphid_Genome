@@ -13,6 +13,7 @@
 
 set -euo pipefail
 
+# Load module
 module load busco5/5.7.1
 
 PROTEINS="/90daydata/tgl_seqdata/aphids/annotation/ypa/funannotate/hemiptera_output/predict_results/Monelliopsis_pecanis_YPA.proteins.fa"

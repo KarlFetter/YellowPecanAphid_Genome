@@ -13,13 +13,16 @@
 
 set -euo pipefail
 
+# Load module
 module load bcftools
 
+# Set inputs
 WORK_DIR="/90daydata/tgl_seqdata/aphids/popgen/ypa/01_snps"
 INPUT_VCF="${WORK_DIR}/ypa_DP10_220_biallelic.vcf.gz"
 OUTPUT_VCF="${WORK_DIR}/ypa_DP10_220_biallelic_top6.vcf.gz"
 CHROMOSOMES="ptg000001l_1,ptg000004l_1,ptg000003l_1,ptg000002l_1,ptg000005l_1,ptg000006l_1"
 
+# subset VCF to top 6 chromosomes
 bcftools view --threads "$SLURM_CPUS_PER_TASK" \
   -r "$CHROMOSOMES" \
   -Oz -o "$OUTPUT_VCF" \

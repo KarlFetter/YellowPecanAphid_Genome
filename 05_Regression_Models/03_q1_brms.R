@@ -1,11 +1,13 @@
 # Q1: Does TE presence in a fixed window affect nucleotide diversity (PI)?
 library(brms)
 
+# Set up in puts
 work_dir <- "/90daydata/tgl_seqdata/aphids/repeats/ypa/05b_Repeats_GeneticDiv/fixed_windows"
 input_file <- file.path(work_dir, "genome_10kb_pi.tsv")
 output_dir <- file.path(work_dir, "brms_models")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
+# read in data & prepare variables for model fitting
 dat <- read.delim(input_file, header = TRUE, sep = "\t", stringsAsFactors = FALSE,
                   check.names = FALSE, na.strings = c("NA", ""))
 
@@ -16,12 +18,14 @@ dat$TE_PRESENT <- factor(dat$TE_PRESENT, levels = c("FALSE", "TRUE"))
 dat$CHROM <- factor(dat$CHROM)
 dat$ORDER <- factor(dat$ORDER)
 
+# specify priors for the model
 priors <- c(
   prior(normal(0, 2), class = "b"),
   prior(student_t(3, 0, 2.5), class = "Intercept"),
   prior(exponential(1), class = "sigma")
 )
 
+# fit brms model
 q1 <- brm(
   PI ~ TE_PRESENT + CHROM,
   data = dat,

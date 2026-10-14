@@ -3,11 +3,13 @@ library(brms)
 library(tidyr)
 library(dplyr)
 
+# Set up inputs and output directories
 work_dir <- "/90daydata/tgl_seqdata/aphids/repeats/ypa/05b_Repeats_GeneticDiv/fixed_windows"
 input_file <- file.path(work_dir, "genome_10kb_pi.tsv")
 output_dir <- file.path(work_dir, "brms_models")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
+# Read in data and prep variables
 dat <- read.delim(input_file, header = TRUE, sep = "\t", stringsAsFactors = FALSE,
                   check.names = FALSE, na.strings = c("NA", ""))
 
@@ -17,6 +19,7 @@ dat$MEAN_KIMURA_PERCENT <- as.numeric(dat$MEAN_KIMURA_PERCENT)
 dat$TE_PRESENT <- factor(dat$TE_PRESENT, levels = c("FALSE", "TRUE"))
 dat$CHROM <- factor(dat$CHROM)
 
+# Set priors
 priors <- c(
   prior(normal(0, 2), class = "b"),
   prior(student_t(3, 0, 2.5), class = "Intercept"),
@@ -31,6 +34,7 @@ q2_data_long <- dat %>%
   filter(ORDER != "") %>%
   mutate(ORDER = factor(ORDER))
 
+# fit brms model for TE order
 q2 <- brm(
   PI ~ CHROM + ORDER + TE_FRACTION,
   data = q2_data_long,
@@ -42,6 +46,7 @@ q2 <- brm(
 )
 summary(q2)
 
+# convert from wide to long
 q2b_data_long <- dat %>%
   filter(TE_PRESENT == "TRUE", !is.na(CLASS), CLASS != "NONE") %>%
   separate_rows(CLASS, sep = ";") %>%
@@ -49,6 +54,7 @@ q2b_data_long <- dat %>%
   filter(CLASS != "") %>%
   mutate(CLASS = factor(CLASS))
 
+# fit brms model
 q2b <- brm(
   PI ~ CHROM + CLASS + TE_FRACTION,
   data = q2b_data_long,

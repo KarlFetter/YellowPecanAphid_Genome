@@ -13,8 +13,10 @@
 
 set -euo pipefail
 
+# Load module
 module load funannotate/1.8.16
 
+# Set up inputs
 BASE_DIR="/90daydata/tgl_seqdata/aphids/annotation/ypa/fun_functional"
 PREDICT_DIR="/90daydata/tgl_seqdata/aphids/annotation/ypa/funannotate/hemiptera_output"
 OUT_DIR="${BASE_DIR}/fun_runHemi"
@@ -25,6 +27,7 @@ export AUGUSTUS_CONFIG_PATH="/90daydata/tgl_seqdata/aphids/annotation/ypa/august
 mkdir -p "$OUT_DIR"
 cd "$OUT_DIR"
 
+# Run funcational annotation
 funannotate annotate \
   -i "$PREDICT_DIR" \
   -o "$OUT_DIR" \

@@ -13,12 +13,15 @@
 
 set -euo pipefail
 
+# Load module
 module load bcftools
 
+# Set up inputs
 WORK_DIR="/90daydata/tgl_seqdata/aphids/popgen/ypa/01_snps"
 RAW_VCF="${WORK_DIR}/ypa_raw_variants.vcf.gz"
 FILTERED_VCF="${WORK_DIR}/ypa_DP10_220_biallelic.vcf.gz"
 
+# Filter SNPs based on quality and depth
 bcftools view --threads "$SLURM_CPUS_PER_TASK" \
   -v snps \
   -m2 -M2 \
@@ -26,4 +29,5 @@ bcftools view --threads "$SLURM_CPUS_PER_TASK" \
   -Oz -o "$FILTERED_VCF" \
   "$RAW_VCF"
 
+# Index
 bcftools index "$FILTERED_VCF"
