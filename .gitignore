@@ -63,3 +63,4 @@ __pycache__/
 
 # Out of date scripts or duplicative analyses
 figure_making/current_best_circos.R
+01_Assembly/01_raw_reads/ont_stats2.sh
