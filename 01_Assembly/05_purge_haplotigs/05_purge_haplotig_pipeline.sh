@@ -41,7 +41,7 @@ module load seqkit
 
 set -euo pipefail
 
-# ── User-configurable paths ──────────────────────────────────
+# ── Input paths ──────────────────────────────────
 THREADS=32
 ASSEMBLY=/90daydata/tgl_seqdata/aphids/assembly/ypa/04_assembly/hifiasm/ypa.bp.hap1.p_ctg.fa.gz
 READS=/90daydata/tgl_seqdata/aphids/assembly/ypa/01_raw_reads/ypa_hifi.fastq.gz

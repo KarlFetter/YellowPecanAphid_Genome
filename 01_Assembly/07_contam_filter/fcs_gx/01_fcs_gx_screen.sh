@@ -23,6 +23,7 @@ SIF_IMAGE="${HOME}/apptainer/fcs-gx.sif"
 
 mkdir -p "${OUTDIR}"
 
+# Run fcs script via python 
 python3 "${FCS_SCRIPT}" --image "${SIF_IMAGE}" screen genome \
   --fasta "${ASSEMBLY}" \
   --out-dir "${OUTDIR}" \

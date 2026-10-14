@@ -11,6 +11,7 @@
 #SBATCH -e %x_%j.err
 #SBATCH -A tgl_seqdata
 
+# Load modules & Set up apptainer/singularity
 module load apptainer || module load singularity || true
 set -euo pipefail
 
@@ -19,7 +20,7 @@ export SINGULARITY_BIND="/90daydata/tgl_seqdata:/90daydata/tgl_seqdata,/project/
 
 SIF_IMAGE="${HOME}/apptainer/fcs-gx.sif"
 
-# ── ADJUST THESE PATHS IF NEEDED ─────────────────────
+# ── ADJUST THESE PATHS AS NEEDED ─────────────────────
 OUTDIR=/90daydata/tgl_seqdata/aphids/assembly/ypa/08_contam_filter/fcs_gx/hap2
 INPUT=/90daydata/tgl_seqdata/aphids/assembly/ypa/06_scaffolding/samba_hifiasm_ul/hap2/purged.fa.scaffolds.fa
 OUTFILE=ypa_hap2.cleaned.fa
@@ -28,11 +29,11 @@ OUTFILE=ypa_hap2.cleaned.fa
 mkdir -p "${OUTDIR}"
 cd "${OUTDIR}"
 
-# 1. Safely expand the wildcard via native Bash array to isolate the match string
+# 1. Set the FCS report file
 REPORTS=( *.fcs_gx_report.txt )
 FCS_REPORT="${REPORTS[0]}"
 
-# 2. Run the direct container execution using the resolved text variable
+# 2. Run the FCS clean-genome command
 singularity exec "${SIF_IMAGE}" /app/bin/gx clean-genome \
   -i "${INPUT}" \
   --action-report="${OUTDIR}/${FCS_REPORT}" \

@@ -39,7 +39,6 @@ set -euo pipefail
 # Run order:
 #   (after 05_purge_haplotigs/03_purge.sh)
 #   01_samba_scaffold.sh  <-- this script
-#   02_scaffold_qc.sh
 # ============================================================
 
 THREADS=32

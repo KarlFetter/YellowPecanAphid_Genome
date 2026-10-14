@@ -16,7 +16,7 @@ module load jellyfish2/2.2.9
 # ============================================================
 # K-mer counting for genome size estimation
 # Upload histogram to GenomeScope2:
-# http://qb.cshl.edu/genomescope/genomescope2.0/
+# http://genomescope.org/genomescope2.0/
 # ============================================================
 
 # Set up inputs
@@ -46,5 +46,4 @@ jellyfish histo \
 
 echo "$(date): Done."
 echo "Histogram: ${OUTDIR}/${PREFIX}.histo"
-echo "Upload to GenomeScope2 (http://qb.cshl.edu/genomescope/genomescope2.0/) for genome size estimation"
-
+echo "Upload to GenomeScope2 (http://genomescope.org/genomescope2.0/) for genome size estimation"
