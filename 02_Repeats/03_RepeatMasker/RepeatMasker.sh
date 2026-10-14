@@ -11,15 +11,15 @@
 
 set -e
 
-# 1. ESTABLISH TARGET WORKSPACE DIRECTORIES
+# Set working dir and create it
 WORK_DIR="/90daydata/tgl_seqdata/aphids/repeats/ypa/02_RepeatMasker"
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 
-# Load environment modules
+# Load module
 module load repeatmasker
 
-# Define core input sequence shortcuts
+# Define inputs
 GENOME="/90daydata/tgl_seqdata/aphids/assembly/ypa/09_final_assembly/ypa_primary.cleaned.fa"
 MODELER_OUT="/90daydata/tgl_seqdata/aphids/assembly/ypa/01_RepeatModeller/consensi.fa"
 REPBASE_DIR="/project/tgl_seqdata/databases/RepBase/RepBase31.07.fasta"

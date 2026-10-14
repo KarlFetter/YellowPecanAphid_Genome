@@ -11,7 +11,7 @@
 #SBATCH -e %x_%j.err
 #SBATCH -A tgl_seqdata
 
-# 1. CREATE AND MOVE TO THE WORKSPACE
+# 1. Set working dir
 WORK_DIR="/90daydata/tgl_seqdata/aphids/genome_biology/repeats/ypa/01_RepeatModeller"
 
 # 2. LOAD REPEATMODELER MODULE Environment
