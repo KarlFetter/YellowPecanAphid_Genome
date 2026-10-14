@@ -1,15 +1,15 @@
 # Genome Assembly Pipeline — *Monelliopsis pecanis* (Yellow Pecan Aphid)
 
-This document describes the complete genome assembly pipeline used to generate a chromosome-scale draft assembly of the yellow pecan aphid, *Monelliopsis pecanis*, from PacBio HiFi and Oxford Nanopore Technologies (ONT) long reads. All scripts are organized by pipeline step and were run on the USDA SCINet Ceres HPC cluster using SLURM.
+This document describes the genome assembly pipeline used to generate a chromosome-scale draft assembly of the yellow pecan aphid, *Monelliopsis pecanis*, from PacBio HiFi and Oxford Nanopore Technologies (ONT) long reads. All scripts are organized by pipeline step and were run on the USDA SCINet Ceres HPC cluster using SLURM.
 
 ---
 
 ## Pipeline Overview
 
 ```
-01_raw_reads/           Convert HiFi BAM → FASTQ; concatenate and QC ONT reads
-03_genome_size/         k-mer counting (Jellyfish) → GenomeScope2 genome size estimate
-04_assembly/            De novo assembly (hifiasm, Verkko); GFA → FASTA; BUSCO QC
+01_raw_reads/           Convert HiFi BAM to FASTQ; concatenate and QC ONT reads
+03_genome_size/         k-mer counting (Jellyfish); GenomeScope2 genome size estimate
+04_assembly/            De novo assembly (hifiasm, Verkko); GFA to FASTA; BUSCO QC
 05_purge_haplotigs/     Haplotig purging (purge_dups) for hap1 and hap2
 06_scaffolding/         Scaffold and gap-fill purged contigs (SAMBA / MaSuRCA)
 07_contam_filter/       Contamination screening and filtering with NCBI FCS-GX
@@ -28,7 +28,7 @@ PacBio HiFi reads were delivered as a single BAM file from the sequencing instru
 
 | Script | Purpose |
 |---|---|
-| `bam2fastq.sh` | `samtools fastq` BAM → gzipped FASTQ |
+| `bam2fastq.sh` | `samtools fastq` BAM to gzipped FASTQ |
 | `seqkit_stats.sh` | Read statistics across all FASTQ files |
 
 **Key parameters**: 8 threads, `samtools fastq`; `seqkit stats -a`
@@ -57,7 +57,7 @@ Genome size was estimated by k-mer frequency analysis of the HiFi reads.
 **Workflow**:
 1. **Jellyfish v2.2.9** counted canonical 21-mers (`jellyfish count -m 21 -C`) from the HiFi FASTQ.
 2. A k-mer frequency histogram was generated (`jellyfish histo`).
-3. The histogram was uploaded to **GenomeScope2** (http://qb.cshl.edu/genomescope/genomescope2.0/) to estimate genome size, heterozygosity, and ploidy.
+3. The histogram was uploaded to **GenomeScope2** (http://genomescope.org/) to estimate genome size, heterozygosity, and ploidy.
 
 **Key parameters**: k = 21, hash size = 10G, 8 threads, canonical counting (`-C`)
 
@@ -65,17 +65,16 @@ Genome size was estimated by k-mer frequency analysis of the HiFi reads.
 
 ## Step 3 — De Novo Genome Assembly (`04_assembly/`)
 
-Multiple assemblies were generated to compare assemblers and input read combinations. Each assembly was evaluated with BUSCO before selecting the best candidate for downstream processing.
+Multiple assemblies were generated to compare assemblers and input read combinations. Each assembly was evaluated with BUSCO for completeness and contiguity statistics before selecting the best candidate assembly for downstream processing.
 
 ### Assembly strategies
 
 | Script | Assembler | Read input | Notes |
 |---|---|---|---|
 | `01_hifiasm.sh` | hifiasm v0.25.0 | HiFi only | Baseline HiFi assembly |
-| `01b_hifiasm_ul_barcodeONTreads.sh` | hifiasm v0.25.0 | HiFi + ONT (raw barcode files, `--ul`) | ONT reads passed directly from barcode directory |
+| `01b_hifiasm_ul_barcodeONTreads.sh` | hifiasm v0.25.0 | HiFi + ONT (`--ul`) | ONT reads passed directly from barcode directory |
 | `01d_hifiasm_ul_34KbN50.sh` | hifiasm v0.25.0 | HiFi + ONT (filtered, N50 ~34 kb, `--ul`) | Ultra-long mode with length-filtered ONT reads |
 | `01c_ont_hifiasm.sh` | hifiasm v0.25.0 | ONT simplex only (`--ont`) | ONT-only assembly for comparison |
-| `verkko.sh` | Verkko | HiFi + ONT | Graph-based assembler as an alternative |
 
 **hifiasm parameters (all runs)**: 64 threads, default error correction and graph parameters; `--ul` flag for ultra-long ONT-assisted assembly.
 
@@ -91,7 +90,7 @@ Each assembly directory (`hifiasm/`, `hifiasm_ul_34kbN50/`, `hifiasm_ul_ONTbarco
 
 | Script | Purpose |
 |---|---|
-| `gfa2fasta.sh` | Convert GFA → gzipped FASTA for primary, hap1, hap2 |
+| `gfa2fasta.sh` | Convert GFA to gzipped FASTA for primary, hap1, hap2 |
 | `busco_insecta.sh` | BUSCO v5 assessment (insecta_odb10) of all three outputs |
 
 ### Assembly quality assessment
