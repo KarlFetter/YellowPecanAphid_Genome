@@ -19,6 +19,7 @@ module load jellyfish2/2.2.9
 # http://qb.cshl.edu/genomescope/genomescope2.0/
 # ============================================================
 
+# Set up inputs
 THREADS=8
 KMER=21
 HASH_SIZE=10G

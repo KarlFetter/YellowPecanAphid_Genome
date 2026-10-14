@@ -11,6 +11,7 @@
 #SBATCH -e %x_%j.err
 #SBATCH -A tgl_seqdata
 
+# Load the module
 module load samtools
 
 # ============================================================
@@ -18,6 +19,7 @@ module load samtools
 # Species: Yellow pecan aphid (Monelliopsis pecanis)
 # ============================================================
 
+# Set up the job
 THREADS=8
 INBAM=/project/tgl_seqdata/insect/yellow_pecan_aphid/r21129_20260514_201441/1_A01/hifi_reads/m21129_260514_201920.hifi_reads.bam
 OUTDIR=./
@@ -27,6 +29,7 @@ mkdir -p ${OUTDIR}
 
 echo "$(date): Converting BAM to FASTQ..."
 
+# Convert BAM to FASTQ using samtools
 samtools fastq \
     -@ ${THREADS} \
     ${INBAM} | gzip > ${OUTDIR}/${PREFIX}.fastq.gz

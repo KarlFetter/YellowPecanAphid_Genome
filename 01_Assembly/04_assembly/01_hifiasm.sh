@@ -27,8 +27,8 @@ PREFIX=ypa
 mkdir -p ${OUTDIR}
 cd ${OUTDIR}
 
+# Run hifiasm for HiFi-only assembly
 hifiasm \
     -o ${PREFIX} \
     -t ${THREADS} \
     ${READS}
-

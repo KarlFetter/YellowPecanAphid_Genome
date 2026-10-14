@@ -11,8 +11,11 @@
 #SBATCH -e %x_%j.err
 #SBATCH -A tgl_seqdata
 
+# Load module
 module load seqkit
 
+# Set up the job
 INPUT=/project/tgl_seqdata/barcoded_sequences/BMA4_BPA5_YPA6_CaquaR1T6/20260421_1552_P2I-00455-A_PBK06960_e4cde178/fastq_pass/barcode03/*fastq.gz 
 
+# concat inputs
 seqkit seq $INPUT -o YPA_ONT_reads_barcode_run.fastq.gz

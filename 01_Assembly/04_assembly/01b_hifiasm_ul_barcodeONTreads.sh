@@ -28,6 +28,7 @@ PREFIX=ypa_ul
 mkdir -p ${OUTDIR}
 cd ${OUTDIR}
 
+# Run hifiasm for HiFi + ONT ultra-long assembly
 hifiasm \
     -o ${PREFIX} \
     -t ${THREADS} \

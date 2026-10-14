@@ -13,6 +13,7 @@
 
 module load seqkit
 
+# Inputs
 INPUT=YPA_ONT_reads_barcode_run.fastq.gz
 
 # Generate the read_lengths file
