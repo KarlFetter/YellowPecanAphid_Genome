@@ -49,6 +49,7 @@ __pycache__/
 
 # VS Code
 .vscode/
+/YellowPecanAphid_Genome.code-workspace
 
 # Local manuscript-code source archive and curation workspace
 /aphids.zip
