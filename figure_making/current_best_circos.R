@@ -1,5 +1,3 @@
-# The best current circos uses 10% of the gene track.
-# The full gene track has too many genes to make it useful. 
 
 setTimeLimit(cpu = Inf, elapsed = Inf, transient = FALSE)
 
