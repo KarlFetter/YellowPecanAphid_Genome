@@ -26,14 +26,14 @@ This repository contains the bioinformatic pipelines and analysis scripts for th
 YellowPecanAphid_Genome/
 ├── .gitignore
 ├── LICENSE
-├── METHODS.md             ← Detailed manuscript methods
+├── METHODS.md             ← Genome assembly pipeline as text
 ├── README.md
 ├── references.bib         ← Manuscript references
 ├── 01_Assembly/           ← Genome assembly pipeline
 │   ├── README.md          ← Assembly documentation
 │   ├── 01_raw_reads/      ← BAM-to-FASTQ conversion, read QC
 │   ├── 03_genome_size/    ← k-mer counting (Jellyfish/GenomeScope2)
-│   ├── 04_assembly/       ← hifiasm and Verkko assemblies
+│   ├── 04_assembly/       ← hifiasm assemblies
 │   ├── 05_purge_haplotigs/← Haplotig purging (purge_dups)
 │   ├── 06_scaffolding/    ← Scaffolding and gap-filling (SAMBA)
 │   ├── 07_contam_filter/  ← NCBI FCS-GX contamination screening
@@ -76,7 +76,7 @@ See [01_Assembly/README.md](01_Assembly/README.md) for a step-by-step descriptio
 
 - PacBio HiFi and Oxford Nanopore read processing
 - Genome size estimation via k-mer analysis
-- De novo assembly with hifiasm (HiFi-only and HiFi+ONT ultra-long) and Verkko
+- De novo assembly with hifiasm (HiFi-only and HiFi+ONT ultra-long)
 - Haplotig purging with purge_dups
 - Scaffolding and gap-filling with SAMBA (MaSuRCA)
 - Contamination screening with NCBI FCS-GX
@@ -107,9 +107,11 @@ See [05_Regression_Models/README.md](05_Regression_Models/README.md) for the fou
 Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 
 - **BioProject**: PRJNA1519993
-- **GenBank assembly**: [PROCESSING]
+- **GenBank assembly**: JCEMCC000000000.1
 - **SRA HiFi reads**: SRR40386561
 - **SRA ONT reads**: SRR40386560
+- **Genome Annotation (temporary repo site)**: [Link to Monelliopsis_pecanis_YPA.gff3](https://drive.google.com/file/d/1ZqMJQeZmK_QBsimtSxGMcwSv8Xn8IRpY/view?usp=sharing)
+- ** Genome Assembly (temporary repo site)***: [Link to Monelliopsis_pecanis_Mpec_v1.fa.gz](https://drive.google.com/file/d/1HKQbDiVEwYX5PMA0LH8pzmIsJqGz1set/view?usp=sharing)
 
 ---
 
