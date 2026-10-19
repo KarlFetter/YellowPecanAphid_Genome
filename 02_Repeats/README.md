@@ -1,6 +1,6 @@
 # Repeat Annotation Pipeline — *Monelliopsis pecanis* (Yellow Pecan Aphid)
 
-This document describes the repeat identification and soft-masking pipeline applied to the chromosome-scale draft assembly of the yellow pecan aphid, *Monelliopsis pecanis* (Bissell, 1983). All scripts were run on the USDA SCINet Ceres HPC cluster using SLURM.
+Workflow describing the repeat identification and soft-masking pipeline for the draft assembly of the yellow pecan aphid, *Monelliopsis pecanis* (Bissell, 1983). All scripts were run on the USDA SCINet Ceres HPC cluster using SLURM.
 
 ---
 
@@ -9,7 +9,7 @@ This document describes the repeat identification and soft-masking pipeline appl
 ```
 01_RepeatModeler/              De novo repeat family discovery (RepeatModeler2 + LTRStruct)
 02_TEtrimmer/                  Automated curation of the de novo TE library
-03_RepeatMasker/               Merge de novo + RepBase libraries and soft-mask the genome
+03_RepeatMasker/               Merge the *de novo* + RepBase libraries and soft-mask the genome
 04_RM_Report_Top6Scaffolds/    ProcessRepeats report for the six chromosome-scale scaffolds
 05_Repeats_Fixed_Windows/      Fixed-window TE/genetic-diversity pipeline
 ```
@@ -22,15 +22,15 @@ This document describes the repeat identification and soft-masking pipeline appl
 |---|---|
 | `RepeatModeler.sh` | Build genome database and run de novo repeat identification |
 
-RepeatModeler2 was used to build a species-specific repeat consensus library directly from the cleaned primary assembly. The pipeline proceeds in two sub-steps.
+RepeatModeler2 was used to build a species-specific repeat consensus library directly from the cleaned primary assembly. The pipeline proceeds in two steps.
 
 **Step A — BuildDatabase**: A RepeatModeler-formatted genome database (`ypa_db`) was constructed from the contamination-cleaned primary assembly (`ypa_primary.cleaned.fa`) using `BuildDatabase`.
 
-**Step B — RepeatModeler**: De novo repeat family identification was performed with `RepeatModeler` using 36 threads. The `-LTRStruct` flag was set to activate the structural LTR retrotransposon discovery pipeline (LTRHarvest + LTR_retriever), which identifies full-length LTR elements that may be missed by the sequence-similarity-based RECON and RepeatScout engines. This flag is strongly recommended for insect genomes, where LTR retrotransposons are a significant TE component.
+**Step B — RepeatModeler**: De novo repeat family identification was performed with `RepeatModeler` using 36 threads. The `-LTRStruct` flag was set to activate the structural LTR retrotransposon discovery pipeline (LTRHarvest + LTR_retriever), which identifies full-length LTR elements that may be missed by the sequence-similarity-based RECON and RepeatScout engines.
 
 **Primary output**: `ypa_db-families.fa` — the species-specific de novo repeat consensus library used as input for curation in Step 2.
 
-**Key parameters**: 36 threads, `-LTRStruct`
+**Key params**: 36 threads, `-LTRStruct`
 
 ---
 
