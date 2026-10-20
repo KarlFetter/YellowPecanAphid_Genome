@@ -106,11 +106,10 @@ See [05_Regression_Models/README.md](05_Regression_Models/README.md) for the fou
 
 Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 
-- **BioProject**: PRJNA1519993
-- **GenBank assembly**: JCEMCC000000000.1
-- **SRA HiFi reads**: SRR40386561
-- **SRA ONT reads**: SRR40386560
-- **NCBI Assembly**: [Link to Mpec v1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_062042632.1/)
+- **BioProject**: [PRJNA1519993](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1519993/)
+- **SRA HiFi reads**: [SRR40386561](https://www.ncbi.nlm.nih.gov/sra/SRR40386561)
+- **SRA ONT reads**: [SRR40386560](https://www.ncbi.nlm.nih.gov/sra/?term=SRR40386560)
+- **NCBI Assembly**: [Mpec v1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_062042632.1/)
 - **Genome Annotation (temporary download access)**: [Link to Monelliopsis_pecanis_YPA.gff3](https://drive.google.com/file/d/1ZqMJQeZmK_QBsimtSxGMcwSv8Xn8IRpY/view?usp=sharing)
 - **Genome Assembly (temporary download access)**: [Link to Monelliopsis_pecanis_Mpec_v1.fa.gz](https://drive.google.com/file/d/1HKQbDiVEwYX5PMA0LH8pzmIsJqGz1set/view?usp=sharing)
 
