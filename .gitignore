@@ -63,7 +63,7 @@ __pycache__/
 .RData
 
 # Out of date scripts or duplicative analyses
-figure_making/current_best_circos.R
+/circos/
 figure_making/current_best_circos_Track3HeatMap.R
 figure_making/circos_shiny_layout_simple.R
 figure_making/manuscript_scratch.R
