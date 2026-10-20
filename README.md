@@ -110,8 +110,9 @@ Raw sequencing reads and the final genome assembly are deposited in NCBI under:
 - **GenBank assembly**: JCEMCC000000000.1
 - **SRA HiFi reads**: SRR40386561
 - **SRA ONT reads**: SRR40386560
-- **Genome Annotation (temporary repo site)**: [Link to Monelliopsis_pecanis_YPA.gff3](https://drive.google.com/file/d/1ZqMJQeZmK_QBsimtSxGMcwSv8Xn8IRpY/view?usp=sharing)
-- ** Genome Assembly (temporary repo site)**: [Link to Monelliopsis_pecanis_Mpec_v1.fa.gz](https://drive.google.com/file/d/1HKQbDiVEwYX5PMA0LH8pzmIsJqGz1set/view?usp=sharing)
+- **NCBI Assembly**: [Link to Mpec v1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_062042632.1/)
+- **Genome Annotation (temporary download access)**: [Link to Monelliopsis_pecanis_YPA.gff3](https://drive.google.com/file/d/1ZqMJQeZmK_QBsimtSxGMcwSv8Xn8IRpY/view?usp=sharing)
+- **Genome Assembly (temporary download access)**: [Link to Monelliopsis_pecanis_Mpec_v1.fa.gz](https://drive.google.com/file/d/1HKQbDiVEwYX5PMA0LH8pzmIsJqGz1set/view?usp=sharing)
 
 ---
 
